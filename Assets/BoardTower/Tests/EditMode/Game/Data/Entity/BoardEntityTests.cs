@@ -114,7 +114,7 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
             _entity.Add(EventSquareVO.Create(1, 1, new SquareEventVO(SquareEventType.Gem, null)));
             _entity.Add(EventSquareVO.Create(2, 2, new SquareEventVO(SquareEventType.Ply, null)));
 
-            var result = _entity.GetRenderEventSquare(RenderType.Retain);
+            var result = _entity.GetRenderEventSquare(RenderType.RetainUp);
 
             Assert.That(result.eventSquares.Length, Is.EqualTo(2));
         }

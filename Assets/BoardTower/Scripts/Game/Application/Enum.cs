@@ -57,7 +57,8 @@ namespace BoardTower.Game.Application
     {
         None = 0,
         Refresh = 1,
-        Retain = 2,
+        RetainUp = 2,
+        RetainDown = 3,
     }
 
     public enum RotateType

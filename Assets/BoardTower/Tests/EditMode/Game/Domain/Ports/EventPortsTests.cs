@@ -59,7 +59,7 @@ namespace BoardTower.Tests.EditMode.Game.Domain.Ports
         [Test]
         public async Task PublishEventSquaresAsync_CallsPublisherOnce()
         {
-            var vo = new RenderEventSquareVO(RenderType.Retain, Array.Empty<EventSquareVO>());
+            var vo = new RenderEventSquareVO(RenderType.RetainUp, Array.Empty<EventSquareVO>());
 
             await _ports.PublishEventSquaresAsync(vo, CancellationToken.None).AsTask();
 
@@ -77,7 +77,8 @@ namespace BoardTower.Tests.EditMode.Game.Domain.Ports
         }
 
         [TestCase(RenderType.Refresh)]
-        [TestCase(RenderType.Retain)]
+        [TestCase(RenderType.RetainUp)]
+        [TestCase(RenderType.RetainDown)]
         public async Task PublishEventSquaresAsync_PublishesCorrectRenderType(RenderType render)
         {
             var vo = new RenderEventSquareVO(render, Array.Empty<EventSquareVO>());
@@ -90,7 +91,7 @@ namespace BoardTower.Tests.EditMode.Game.Domain.Ports
         [Test]
         public async Task PublishEventSquaresAsync_CalledMultipleTimes_IncrementsCount()
         {
-            var vo = new RenderEventSquareVO(RenderType.Retain, Array.Empty<EventSquareVO>());
+            var vo = new RenderEventSquareVO(RenderType.RetainUp, Array.Empty<EventSquareVO>());
 
             await _ports.PublishEventSquaresAsync(vo, CancellationToken.None).AsTask();
             await _ports.PublishEventSquaresAsync(vo, CancellationToken.None).AsTask();

@@ -43,6 +43,8 @@ namespace BoardTower.Common.Application
         Cancel = 2,
         Step = 3,
         PopLog = 4,
+        GetItem = 5,
+        Needle = 6,
     }
 
     public enum GameMode

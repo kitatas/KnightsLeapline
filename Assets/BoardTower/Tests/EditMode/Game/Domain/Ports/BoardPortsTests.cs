@@ -111,7 +111,7 @@ namespace BoardTower.Tests.EditMode.Game.Domain.Ports
         [Test]
         public async Task PublishEventSquaresAsync_CalledMultipleTimes_IncrementsCount()
         {
-            var vo = new RenderEventSquareVO(RenderType.Retain, System.Array.Empty<EventSquareVO>());
+            var vo = new RenderEventSquareVO(RenderType.RetainUp, System.Array.Empty<EventSquareVO>());
 
             await _ports.PublishEventSquaresAsync(vo, CancellationToken.None).AsTask();
             await _ports.PublishEventSquaresAsync(vo, CancellationToken.None).AsTask();

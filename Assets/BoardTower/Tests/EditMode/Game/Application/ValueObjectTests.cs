@@ -356,7 +356,8 @@ namespace BoardTower.Tests.EditMode.Game.Application
         }
 
         [TestCase(RenderType.Refresh)]
-        [TestCase(RenderType.Retain)]
+        [TestCase(RenderType.RetainUp)]
+        [TestCase(RenderType.RetainDown)]
         public void RenderEventSquareVO_Constructor_WithValidRender_AssignsValues(RenderType render)
         {
             var eventSquares = new[] { EventSquareVO.Create(1, 1, new SquareEventVO(SquareEventType.Empty, null)) };

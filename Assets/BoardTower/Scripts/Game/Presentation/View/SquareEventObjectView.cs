@@ -12,7 +12,8 @@ namespace BoardTower.Game.Presentation.View
 
         public Tween Render(SquareEventVO squareEvent, RenderType render, float duration, float delay)
         {
-            if (render == RenderType.Retain && _currentType == squareEvent.type) return null;
+            var isRetain = render is RenderType.RetainUp or RenderType.RetainDown;
+            if (isRetain && _currentType == squareEvent.type) return null;
             _currentType = squareEvent.type;
 
             eventObjectTransform.gameObject.DestroyChildren();

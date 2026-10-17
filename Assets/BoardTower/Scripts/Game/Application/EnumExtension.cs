@@ -128,5 +128,15 @@ namespace BoardTower.Game.Application
                 _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_ACHIEVEMENT_RANK),
             };
         }
+
+        public static SeType ToSeType(this RenderType self)
+        {
+            return self switch
+            {
+                RenderType.RetainUp => SeType.GetItem,
+                RenderType.RetainDown => SeType.Needle,
+                _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_RENDER),
+            };
+        }
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using BoardTower.Common.Domain.UseCase;
+using BoardTower.Game.Application;
 using BoardTower.Game.Domain.UseCase;
 using BoardTower.Game.Presentation.Facade;
 using MessagePipe;
@@ -9,13 +11,16 @@ namespace BoardTower.Game.Presentation.Presenter
 {
     public sealed class BoardPresenter : IStartable, IDisposable
     {
+        private readonly SeUseCase _seUseCase;
         private readonly BoardUseCase _boardUseCase;
         private readonly MovementUseCase _movementUseCase;
         private readonly BoardFacade _boardFacade;
         private readonly CompositeDisposable _disposable;
 
-        public BoardPresenter(BoardUseCase boardUseCase, MovementUseCase movementUseCase, BoardFacade boardFacade)
+        public BoardPresenter(SeUseCase seUseCase, BoardUseCase boardUseCase, MovementUseCase movementUseCase,
+            BoardFacade boardFacade)
         {
+            _seUseCase = seUseCase;
             _boardUseCase = boardUseCase;
             _movementUseCase = movementUseCase;
             _boardFacade = boardFacade;
@@ -29,7 +34,11 @@ namespace BoardTower.Game.Presentation.Presenter
                 .AddTo(_disposable);
 
             _boardUseCase.renderEvent
-                .Subscribe((e, ct) => _boardFacade.RenderEventAsync(e, ct))
+                .Subscribe((e, ct) =>
+                {
+                    if (e.render is not RenderType.Refresh) _seUseCase.Play(e.render.ToSeType());
+                    return _boardFacade.RenderEventAsync(e, ct);
+                })
                 .AddTo(_disposable);
 
             _movementUseCase.highlights

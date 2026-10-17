@@ -1,4 +1,7 @@
 using System;
+using BoardTower.Common.Application;
+using BoardTower.Common.Domain.UseCase;
+using BoardTower.Game.Application;
 using BoardTower.Game.Domain.UseCase;
 using BoardTower.Game.Presentation.Facade;
 using MessagePipe;
@@ -9,14 +12,16 @@ namespace BoardTower.Game.Presentation.Presenter
 {
     public sealed class LotRelicPresenter : IStartable, IDisposable
     {
+        private readonly SeUseCase _seUseCase;
         private readonly LotRelicUseCase _lotRelicUseCase;
         private readonly SelectRelicUseCase _selectRelicUseCase;
         private readonly LotRelicFacade _lotRelicFacade;
         private readonly CompositeDisposable _disposable;
 
-        public LotRelicPresenter(LotRelicUseCase lotRelicUseCase, SelectRelicUseCase selectRelicUseCase,
-            LotRelicFacade lotRelicFacade)
+        public LotRelicPresenter(SeUseCase seUseCase, LotRelicUseCase lotRelicUseCase,
+            SelectRelicUseCase selectRelicUseCase, LotRelicFacade lotRelicFacade)
         {
+            _seUseCase = seUseCase;
             _lotRelicUseCase = lotRelicUseCase;
             _selectRelicUseCase = selectRelicUseCase;
             _lotRelicFacade = lotRelicFacade;
@@ -30,12 +35,29 @@ namespace BoardTower.Game.Presentation.Presenter
                 .AddTo(_disposable);
 
             _lotRelicUseCase.transition
-                .Subscribe((r, ct) => _lotRelicFacade.FadeAsync(r, ct))
+                .Subscribe((l, ct) =>
+                {
+                    if (l.transition.duration > 0) PlayPopSe();
+                    return _lotRelicFacade.FadeAsync(l, ct);
+                })
                 .AddTo(_disposable);
 
             _lotRelicFacade.OnClickAnyAsObservable()
-                .Subscribe(_selectRelicUseCase.Select)
+                .ThrottleFirst(TimeSpan.FromSeconds(0.1f))
+                .Subscribe(x =>
+                {
+                    _seUseCase.Play(SeType.Decision);
+                    _selectRelicUseCase.Select(x);
+                })
                 .AddTo(_disposable);
+        }
+
+        private void PlayPopSe()
+        {
+            for (int i = 0; i < RelicConfig.LOT_NUM; i++)
+            {
+                _seUseCase.Play(SeType.PopLog, RelicConfig.LOT_DELAY_RATE * i);
+            }
         }
 
         void IDisposable.Dispose()

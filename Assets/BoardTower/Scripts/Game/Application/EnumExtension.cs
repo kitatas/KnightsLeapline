@@ -138,5 +138,15 @@ namespace BoardTower.Game.Application
                 _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_RENDER),
             };
         }
+
+        public static SeType ToSeType(this FinishType self)
+        {
+            return self switch
+            {
+                FinishType.Clear => SeType.Clear,
+                FinishType.Fail => SeType.Miss,
+                _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_FINISH),
+            };
+        }
     }
 }

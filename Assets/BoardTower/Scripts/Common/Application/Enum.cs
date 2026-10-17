@@ -41,6 +41,7 @@ namespace BoardTower.Common.Application
         None = 0,
         Decision = 1,
         Cancel = 2,
+        Step = 3,
     }
 
     public enum GameMode

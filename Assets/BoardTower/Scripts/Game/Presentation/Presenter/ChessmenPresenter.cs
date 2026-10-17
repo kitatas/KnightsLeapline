@@ -1,4 +1,6 @@
 using System;
+using BoardTower.Common.Application;
+using BoardTower.Common.Domain.UseCase;
 using BoardTower.Game.Domain.UseCase;
 using BoardTower.Game.Presentation.Facade;
 using MessagePipe;
@@ -9,12 +11,14 @@ namespace BoardTower.Game.Presentation.Presenter
 {
     public sealed class ChessmenPresenter : IStartable, IDisposable
     {
+        private readonly SeUseCase _seUseCase;
         private readonly ChessmenUseCase _chessmenUseCase;
         private readonly ChessmenFacade _chessmenFacade;
         private readonly CompositeDisposable _disposable;
 
-        public ChessmenPresenter(ChessmenUseCase chessmenUseCase, ChessmenFacade chessmenFacade)
+        public ChessmenPresenter(SeUseCase seUseCase, ChessmenUseCase chessmenUseCase, ChessmenFacade chessmenFacade)
         {
+            _seUseCase = seUseCase;
             _chessmenUseCase = chessmenUseCase;
             _chessmenFacade = chessmenFacade;
             _disposable = new CompositeDisposable();
@@ -27,7 +31,11 @@ namespace BoardTower.Game.Presentation.Presenter
                 .AddTo(_disposable);
 
             _chessmenUseCase.movement
-                .Subscribe((m, ct) => _chessmenFacade.MoveAsync(m, ct))
+                .Subscribe((m, ct) =>
+                {
+                    _seUseCase.Play(SeType.Step);
+                    return _chessmenFacade.MoveAsync(m, ct);
+                })
                 .AddTo(_disposable);
         }
 

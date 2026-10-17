@@ -30,6 +30,11 @@ namespace BoardTower.Common.Presentation.View
             }
         }
 
+        public void StopBgm()
+        {
+            bgmSource.Stop();
+        }
+
         private void PlayBgm()
         {
             if (bgmSource.status is CriAtomSourceBase.Status.Playing)

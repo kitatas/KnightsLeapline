@@ -26,6 +26,11 @@ namespace BoardTower.Common.Presentation.View
             }
         }
 
+        public void StopBgm()
+        {
+            bgmSource.Stop();
+        }
+
         private void PlayBgm()
         {
             bgmSource.Play();

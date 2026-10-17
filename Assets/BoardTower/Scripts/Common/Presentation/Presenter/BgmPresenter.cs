@@ -25,6 +25,10 @@ namespace BoardTower.Common.Presentation.Presenter
                 .Subscribe(_bgmFacade.Play)
                 .AddTo(_disposable);
 
+            _bgmUseCase.stop
+                .Subscribe(_ => _bgmFacade.Stop())
+                .AddTo(_disposable);
+
             _bgmUseCase.volume
                 .Subscribe(_bgmFacade.SetVolume)
                 .AddTo(_disposable);

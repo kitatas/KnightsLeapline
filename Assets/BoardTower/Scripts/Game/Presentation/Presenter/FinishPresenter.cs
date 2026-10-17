@@ -1,4 +1,5 @@
 using System;
+using BoardTower.Common.Application;
 using BoardTower.Common.Domain.UseCase;
 using BoardTower.Game.Application;
 using BoardTower.Game.Domain.UseCase;
@@ -11,13 +12,16 @@ namespace BoardTower.Game.Presentation.Presenter
 {
     public sealed class FinishPresenter : IStartable, IDisposable
     {
+        private readonly BgmUseCase _bgmUseCase;
         private readonly SeUseCase _seUseCase;
         private readonly FinishUseCase _finishUseCase;
         private readonly FinishFacade _finishFacade;
         private readonly CompositeDisposable _disposable;
 
-        public FinishPresenter(SeUseCase seUseCase, FinishUseCase finishUseCase, FinishFacade finishFacade)
+        public FinishPresenter(BgmUseCase bgmUseCase, SeUseCase seUseCase, FinishUseCase finishUseCase,
+            FinishFacade finishFacade)
         {
+            _bgmUseCase = bgmUseCase;
             _seUseCase = seUseCase;
             _finishUseCase = finishUseCase;
             _finishFacade = finishFacade;
@@ -29,7 +33,12 @@ namespace BoardTower.Game.Presentation.Presenter
             _finishUseCase.finishTransition
                 .Subscribe((f, ct) =>
                 {
-                    _seUseCase.Play(f.type.ToSeType());
+                    if (f.transition.fade is Fade.In)
+                    {
+                        _bgmUseCase.Stop();
+                        _seUseCase.Play(f.type.ToSeType());
+                    }
+
                     return _finishFacade.FadeAsync(f, ct);
                 })
                 .AddTo(_disposable);

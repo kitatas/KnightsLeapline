@@ -158,5 +158,15 @@ namespace BoardTower.Game.Application
                 _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_FADE),
             };
         }
+
+        public static SeType ToChessmenSeType(this Fade self)
+        {
+            return self switch
+            {
+                Fade.In => SeType.ChessmenIn,
+                Fade.Out => SeType.ChessmenOut,
+                _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_FADE),
+            };
+        }
     }
 }

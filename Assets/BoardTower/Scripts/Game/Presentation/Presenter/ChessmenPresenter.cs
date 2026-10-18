@@ -1,6 +1,7 @@
 using System;
 using BoardTower.Common.Application;
 using BoardTower.Common.Domain.UseCase;
+using BoardTower.Game.Application;
 using BoardTower.Game.Domain.UseCase;
 using BoardTower.Game.Presentation.Facade;
 using MessagePipe;
@@ -27,7 +28,11 @@ namespace BoardTower.Game.Presentation.Presenter
         void IStartable.Start()
         {
             _chessmenUseCase.transition
-                .Subscribe((t, ct) => _chessmenFacade.FadeAsync(t, ct))
+                .Subscribe((t, ct) =>
+                {
+                    _seUseCase.Play(t.transition.fade.ToChessmenSeType());
+                    return _chessmenFacade.FadeAsync(t, ct);
+                })
                 .AddTo(_disposable);
 
             _chessmenUseCase.movement

@@ -49,6 +49,8 @@ namespace BoardTower.Common.Application
         Miss = 8,
         SquareIn = 9,
         SquareOut = 10,
+        ChessmenIn = 11,
+        ChessmenOut = 12,
     }
 
     public enum GameMode

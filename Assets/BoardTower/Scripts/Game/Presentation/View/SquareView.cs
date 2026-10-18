@@ -46,7 +46,7 @@ namespace BoardTower.Game.Presentation.View
         {
             return DOTween.Sequence()
                 .Append(highlight
-                    .DOLocalMoveY(0.0f, duration)
+                    .DOLocalMoveY(-0.2f, duration)
                     .SetEase(Ease.Linear))
                 .SetLink(gameObject);
         }

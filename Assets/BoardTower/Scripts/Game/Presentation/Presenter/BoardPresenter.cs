@@ -1,4 +1,5 @@
 using System;
+using BoardTower.Common.Application;
 using BoardTower.Common.Domain.UseCase;
 using BoardTower.Game.Application;
 using BoardTower.Game.Domain.UseCase;
@@ -30,7 +31,11 @@ namespace BoardTower.Game.Presentation.Presenter
         void IStartable.Start()
         {
             _boardUseCase.transition
-                .Subscribe((t, ct) => _boardFacade.FadeAsync(t, ct))
+                .Subscribe((t, ct) =>
+                {
+                    PlaySquareSe(t.transition.fade);
+                    return _boardFacade.FadeAsync(t, ct);
+                })
                 .AddTo(_disposable);
 
             _boardUseCase.renderEvent
@@ -48,6 +53,14 @@ namespace BoardTower.Game.Presentation.Presenter
             _boardFacade.OnClickAnySquareAsObservable()
                 .Subscribe(s => _movementUseCase.HandleClick(s))
                 .AddTo(_disposable);
+        }
+
+        private void PlaySquareSe(Fade fade)
+        {
+            for (int i = 0; i < BoardConfig.MAX_FILE * 2 - 1; i++)
+            {
+                _seUseCase.Play(fade.ToSquareSeType(), BoardConfig.DELAY_RATE * i);
+            }
         }
 
         void IDisposable.Dispose()

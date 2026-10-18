@@ -47,6 +47,8 @@ namespace BoardTower.Common.Application
         Needle = 6,
         Clear = 7,
         Miss = 8,
+        SquareIn = 9,
+        SquareOut = 10,
     }
 
     public enum GameMode

@@ -148,5 +148,15 @@ namespace BoardTower.Game.Application
                 _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_FINISH),
             };
         }
+
+        public static SeType ToSquareSeType(this Fade self)
+        {
+            return self switch
+            {
+                Fade.In => SeType.SquareIn,
+                Fade.Out => SeType.SquareOut,
+                _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_FADE),
+            };
+        }
     }
 }

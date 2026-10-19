@@ -29,11 +29,11 @@ namespace BoardTower.Game.Presentation.Presenter
                 .AddTo(_disposable);
 
             _selectRelicUseCase.decisionRelic
-                .Subscribe(x =>
-                {
-                    _pickRelicUseCase.HandlePick(x);
-                    _selectRelicFacade.Hide();
-                })
+                .Subscribe(_pickRelicUseCase.HandlePick)
+                .AddTo(_disposable);
+
+            _selectRelicUseCase.hideHighlight
+                .Subscribe(_ => _selectRelicFacade.Hide())
                 .AddTo(_disposable);
         }
 

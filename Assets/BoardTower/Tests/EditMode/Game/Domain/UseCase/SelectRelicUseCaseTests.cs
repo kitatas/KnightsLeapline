@@ -37,6 +37,12 @@ namespace BoardTower.Tests.EditMode.Game.Domain.UseCase
         }
 
         [Test]
+        public void HideHighlight_Observable_IsNotNull()
+        {
+            Assert.That(_useCase.hideHighlight, Is.Not.Null);
+        }
+
+        [Test]
         public void Select_FirstSelection_EmitsOnSelectRelic()
         {
             SelectRelicVO observed = null;
@@ -122,6 +128,67 @@ namespace BoardTower.Tests.EditMode.Game.Domain.UseCase
             _useCase.Select(new SelectRelicVO(2, Vector3.zero));
 
             Assert.That(selectCount, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void HideHighlight_OnSubscribe_EmitsInitialValue()
+        {
+            var emitCount = 0;
+
+            // BehaviorSubjectのため購読時に初期値が流れる
+            _useCase.hideHighlight.Subscribe(_ => emitCount++);
+
+            Assert.That(emitCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Hide_EmitsOnHideHighlight()
+        {
+            var emitCount = 0;
+            _useCase.hideHighlight.Subscribe(_ => emitCount++);
+            emitCount = 0; // 購読時の初期値をリセット
+
+            _useCase.Hide();
+
+            Assert.That(emitCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Select_SameIndexTwice_EmitsOnHideHighlight()
+        {
+            var emitCount = 0;
+            _useCase.hideHighlight.Subscribe(_ => emitCount++);
+            emitCount = 0; // 購読時の初期値をリセット
+
+            _useCase.Select(new SelectRelicVO(1, Vector3.zero));
+            _useCase.Select(new SelectRelicVO(1, Vector3.zero));
+
+            Assert.That(emitCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Select_FirstSelection_DoesNotEmitOnHideHighlight()
+        {
+            var emitCount = 0;
+            _useCase.hideHighlight.Subscribe(_ => emitCount++);
+            emitCount = 0; // 購読時の初期値をリセット
+
+            _useCase.Select(new SelectRelicVO(0, Vector3.zero));
+
+            Assert.That(emitCount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Select_DifferentIndex_DoesNotEmitOnHideHighlight()
+        {
+            var emitCount = 0;
+            _useCase.hideHighlight.Subscribe(_ => emitCount++);
+            emitCount = 0; // 購読時の初期値をリセット
+
+            _useCase.Select(new SelectRelicVO(0, Vector3.zero));
+            _useCase.Select(new SelectRelicVO(1, Vector3.zero));
+
+            Assert.That(emitCount, Is.EqualTo(0));
         }
 
         [Test]

@@ -38,5 +38,10 @@ namespace BoardTower.Common.Data.Entity
         }
 
         public bool IsEqualEntityId(string id) => value.playFabUser.entityId == id;
+
+        public void ClearAchievement()
+        {
+            _achievement = null;
+        }
     }
 }

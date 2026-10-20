@@ -30,6 +30,7 @@ namespace BoardTower.Common.Domain.UseCase
 
         public void Delete()
         {
+            _userEntity.ClearAchievement();
             _saveRepository.Delete();
         }
     }

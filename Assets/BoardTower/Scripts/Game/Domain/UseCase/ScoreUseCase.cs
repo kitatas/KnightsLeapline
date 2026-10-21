@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BoardTower.Game.Application;
 using BoardTower.Game.Data.Entity;
 using BoardTower.Game.Domain.Repository;
@@ -62,11 +63,12 @@ namespace BoardTower.Game.Domain.UseCase
 
         private void ApplyRideOnCollapseScore()
         {
-            var seed = Random.Range(0, 100);
-            if (seed > RelicConfig.ADDITION_THRESHOLD) return;
+            var relics = _pickRelicEntity.Finds(RelicType.Medal);
+            if (relics == null) return;
 
-            var relicEffect = _pickRelicEntity.effect;
-            var value = ScoreConfig.BASE_RIDE_ON_COLLAPSE_VALUE * relicEffect.rideOnCollapseNum;
+            var value = relics
+                .Where(x => Random.Range(0, 100) < x.probability)
+                .Sum(x => x.value);
 
             if (value > 0)
             {

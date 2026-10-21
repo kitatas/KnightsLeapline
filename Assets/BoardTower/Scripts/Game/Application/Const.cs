@@ -75,7 +75,6 @@ namespace BoardTower.Game.Application
         public const float LOT_FADE_DURATION = 0.25f;
         public const float LOT_DELAY_RATE = 0.1f;
 
-        public const int ADDITION_THRESHOLD = 70;
         public const int CONTINUATION_THRESHOLD = 70;
     }
 
@@ -83,7 +82,6 @@ namespace BoardTower.Game.Application
     {
         public const int BASE_GEM_VALUE = 100;
         public const int BASE_ROUND_CLEAR_VALUE = 500;
-        public const int BASE_RIDE_ON_COLLAPSE_VALUE = 50;
 
         public const float OVERFLOW_ROUND_GEM_RATE = 2.0f;
         public const float HALVED_RATE = 1.5f;

@@ -100,6 +100,73 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         }
 
         [Test]
+        public void Finds_WhenValueIsNull_ReturnsEmpty()
+        {
+            var result = _entity.Finds(RelicType.Boots);
+
+            Assert.That(result, Is.Empty);
+        }
+
+        [Test]
+        public void Finds_WhenValueIsEmpty_ReturnsEmpty()
+        {
+            _entity.Set(PickRelicVO.Empty());
+
+            var result = _entity.Finds(RelicType.Boots);
+
+            Assert.That(result, Is.Empty);
+        }
+
+        [Test]
+        public void Finds_WhenNoRelicMatches_ReturnsEmpty()
+        {
+            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
+            _entity.Set(new PickRelicVO(new[] { relic }));
+
+            var result = _entity.Finds(RelicType.Charm);
+
+            Assert.That(result, Is.Empty);
+        }
+
+        [Test]
+        public void Finds_WhenOneRelicMatches_ReturnsOnlyMatchingRelic()
+        {
+            var boots = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false);
+            _entity.Set(new PickRelicVO(new[] { boots, charm }));
+
+            var result = _entity.Finds(RelicType.Charm).ToArray();
+
+            Assert.That(result, Has.Length.EqualTo(1));
+            Assert.That(result[0].type, Is.EqualTo(RelicType.Charm));
+        }
+
+        [Test]
+        public void Finds_WhenMultipleRelicsMatch_ReturnsAllMatchingRelics()
+        {
+            var boots1 = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false);
+            var boots2 = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
+            _entity.Set(new PickRelicVO(new[] { boots1, charm, boots2 }));
+
+            var result = _entity.Finds(RelicType.Boots).ToArray();
+
+            Assert.That(result, Has.Length.EqualTo(2));
+            Assert.That(result.All(x => x.type == RelicType.Boots), Is.True);
+        }
+
+        [Test]
+        public void Finds_AfterAdd_IncludesAddedRelic()
+        {
+            _entity.Set(PickRelicVO.Empty());
+            _entity.Add(new RelicVO(RelicType.Anchor.ToInt32(), "Anchor", "desc", 0, 0, true));
+
+            var result = _entity.Finds(RelicType.Anchor);
+
+            Assert.That(result.Count(), Is.EqualTo(1));
+        }
+
+        [Test]
         public void Set_WithPickRelicVO_StoresCorrectValue()
         {
             var relics = new[]

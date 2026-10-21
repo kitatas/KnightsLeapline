@@ -47,7 +47,7 @@ namespace BoardTower.Game.Domain.UseCase
             var relicEffect = _pickRelicEntity.effect;
             var unitRelicRate = _scoreRateRepository.FindGemUnitRelicRate(relicEffect.gemUnitRateNum);
             var rate = roundRate.value * comboRate.value * unitRelicRate.value;
-            if (isClear && relicEffect.isOverflowRoundGem) rate *= ScoreConfig.OVERFLOW_ROUND_GEM_RATE;
+            if (isClear) rate *= _pickRelicEntity.GetTotalRate(RelicType.Seal);
             if (relicEffect.isPlyHalved) rate *= ScoreConfig.HALVED_RATE;
             if (relicEffect.isRoundClearHalved) rate *= ScoreConfig.HALVED_RATE;
             var value = Mathf.CeilToInt(ScoreConfig.BASE_GEM_VALUE * rate) * gemNum;

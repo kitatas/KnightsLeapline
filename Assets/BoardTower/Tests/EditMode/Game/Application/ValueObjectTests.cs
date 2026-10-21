@@ -720,7 +720,7 @@ namespace BoardTower.Tests.EditMode.Game.Application
         public void RelicVO_Constructor_WithNoneType_ThrowsQuitExceptionVO()
         {
             Assert.That(
-                () => new RelicVO(RelicType.None.ToInt32(), "name", "content", false),
+                () => new RelicVO(RelicType.None.ToInt32(), "name", "content", 0, 0, false),
                 Throws.TypeOf<QuitExceptionVO>());
         }
 
@@ -730,11 +730,13 @@ namespace BoardTower.Tests.EditMode.Game.Application
         [TestCase(RelicType.Medal)]
         public void RelicVO_Constructor_WithValidType_AssignsValues(RelicType type)
         {
-            var sut = new RelicVO(type.ToInt32(), "relic", "desc", true);
+            var sut = new RelicVO(type.ToInt32(), "relic", "desc", 30, 2, true);
 
             Assert.That(sut.type, Is.EqualTo(type));
             Assert.That(sut.relicName, Is.EqualTo("relic"));
             Assert.That(sut.content, Is.EqualTo("desc"));
+            Assert.That(sut.probability, Is.EqualTo(30));
+            Assert.That(sut.value, Is.EqualTo(2));
             Assert.That(sut.isUniq, Is.True);
         }
 
@@ -742,7 +744,7 @@ namespace BoardTower.Tests.EditMode.Game.Application
         [TestCase(false)]
         public void RelicVO_Constructor_WithIsUniqVariants_SetsCorrectly(bool isUniq)
         {
-            var sut = new RelicVO(RelicType.Boots.ToInt32(), "name", "content", isUniq);
+            var sut = new RelicVO(RelicType.Boots.ToInt32(), "name", "content", 0, 0, isUniq);
 
             Assert.That(sut.isUniq, Is.EqualTo(isUniq));
         }
@@ -754,8 +756,8 @@ namespace BoardTower.Tests.EditMode.Game.Application
         {
             var relics = new[]
             {
-                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true),
-                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", false),
+                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true),
+                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false),
             };
 
             var sut = new LotRelicVO(relics);
@@ -798,7 +800,7 @@ namespace BoardTower.Tests.EditMode.Game.Application
         [Test]
         public void PickRelicVO_Constructor_AssignsRelics()
         {
-            var relics = new[] { new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true) };
+            var relics = new[] { new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true) };
 
             var sut = new PickRelicVO(relics);
 

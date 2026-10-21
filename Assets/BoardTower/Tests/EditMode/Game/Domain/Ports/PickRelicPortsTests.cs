@@ -56,7 +56,7 @@ namespace BoardTower.Tests.EditMode.Game.Domain.Ports
         {
             var relics = new[]
             {
-                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true),
+                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true),
             };
             var vo = new PickRelicVO(relics);
 

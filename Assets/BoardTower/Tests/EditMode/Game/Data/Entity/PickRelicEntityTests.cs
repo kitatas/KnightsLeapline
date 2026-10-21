@@ -44,7 +44,7 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         [Test]
         public void RelicTypes_AfterSet_ReturnsCorrectTypes()
         {
-            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true);
+            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
             _entity.Set(new PickRelicVO(new[] { relic }));
 
             var types = _entity.relicTypes.ToArray();
@@ -66,7 +66,7 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         [Test]
         public void Effect_WithBoots_SetsCanMoveToBlockTrue()
         {
-            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true);
+            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
             _entity.Set(new PickRelicVO(new[] { relic }));
 
             var effect = _entity.effect;
@@ -78,7 +78,7 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         public void Add_AppendsRelicToCollection()
         {
             _entity.Set(PickRelicVO.Empty());
-            var relic = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", false);
+            var relic = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false);
 
             _entity.Add(relic);
 
@@ -89,8 +89,8 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         public void Add_CalledMultipleTimes_AccumulatesRelics()
         {
             _entity.Set(PickRelicVO.Empty());
-            var relic1 = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true);
-            var relic2 = new RelicVO(RelicType.Anchor.ToInt32(), "Anchor", "desc", true);
+            var relic1 = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
+            var relic2 = new RelicVO(RelicType.Anchor.ToInt32(), "Anchor", "desc", 0, 0, true);
 
             _entity.Add(relic1);
             _entity.Add(relic2);
@@ -104,8 +104,8 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         {
             var relics = new[]
             {
-                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true),
-                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", false),
+                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true),
+                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false),
             };
             var vo = new PickRelicVO(relics);
 

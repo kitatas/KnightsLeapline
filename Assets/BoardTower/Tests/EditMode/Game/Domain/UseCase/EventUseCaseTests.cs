@@ -81,7 +81,7 @@ namespace BoardTower.Tests.EditMode.Game.Domain.UseCase
             // Boots レリックで Block マスに侵入可能
             var square = _chessmenEntity.square;
             _boardEntity.Add(EventSquareVO.Create(square.file, square.rank, new SquareEventVO(SquareEventType.Block, null)));
-            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true);
+            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
             _pickRelicEntity.Set(PickRelicVO.Empty());
             _pickRelicEntity.Add(relic);
 
@@ -96,7 +96,7 @@ namespace BoardTower.Tests.EditMode.Game.Domain.UseCase
             // Anchor レリックでベルトを無効化
             var square = _chessmenEntity.square;
             _boardEntity.Add(EventSquareVO.Create(square.file, square.rank, new SquareEventVO(SquareEventType.BeltRight, null)));
-            var relic = new RelicVO(RelicType.Anchor.ToInt32(), "Anchor", "desc", true);
+            var relic = new RelicVO(RelicType.Anchor.ToInt32(), "Anchor", "desc", 0, 0, true);
             _pickRelicEntity.Set(PickRelicVO.Empty());
             _pickRelicEntity.Add(relic);
 

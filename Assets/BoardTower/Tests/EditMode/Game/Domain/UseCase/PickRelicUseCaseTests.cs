@@ -76,8 +76,8 @@ namespace BoardTower.Tests.EditMode.Game.Domain.UseCase
         {
             var relics = new[]
             {
-                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true),
-                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", false),
+                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true),
+                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false),
             };
             _lotRelicEntity.Set(new LotRelicVO(relics));
 
@@ -89,8 +89,8 @@ namespace BoardTower.Tests.EditMode.Game.Domain.UseCase
         {
             var relics = new[]
             {
-                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true),
-                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", false),
+                new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true),
+                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false),
             };
             _lotRelicEntity.Set(new LotRelicVO(relics));
             await _useCase.InitAsync(CancellationToken.None).AsTask();

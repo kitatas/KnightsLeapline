@@ -26,7 +26,7 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         [Test]
         public void Set_WithLotRelicVO_StoresValue()
         {
-            var relics = new[] { new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true) };
+            var relics = new[] { new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true) };
             var vo = new LotRelicVO(relics);
 
             _entity.Set(vo);
@@ -47,8 +47,8 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         [Test]
         public void Set_CalledMultipleTimes_OverwritesPreviousValue()
         {
-            var first = new LotRelicVO(new[] { new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", true) });
-            var second = new LotRelicVO(new[] { new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", false) });
+            var first = new LotRelicVO(new[] { new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true) });
+            var second = new LotRelicVO(new[] { new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false) });
 
             _entity.Set(first);
             _entity.Set(second);

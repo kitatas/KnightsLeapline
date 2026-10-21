@@ -62,13 +62,7 @@ namespace BoardTower.Game.Domain.UseCase
 
         private void ApplyRideOnCollapseScore()
         {
-            var relics = _pickRelicEntity.Finds(RelicType.Medal);
-            if (relics == null) return;
-
-            var value = relics
-                .Where(x => Random.Range(0, 100) < x.probability)
-                .Sum(x => x.value);
-
+            var value = _pickRelicEntity.GetTotalValue(RelicType.Medal);
             if (value > 0)
             {
                 _eventLogEntity.Add(EventLogType.Ride, value);

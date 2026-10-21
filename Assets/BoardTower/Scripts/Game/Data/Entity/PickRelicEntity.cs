@@ -31,6 +31,16 @@ namespace BoardTower.Game.Data.Entity
             return relics.ToList().FindAll(x => x.type == type);
         }
 
+        public int GetTotalValue(RelicType type)
+        {
+            var targets = Finds(type);
+            if (targets == null) return 0;
+
+            return targets
+                .Where(x => Random.Range(0, 100) < x.probability)
+                .Sum(x => x.value);
+        }
+
         public float GetTotalRate(RelicType type)
         {
             var targets = Finds(type);

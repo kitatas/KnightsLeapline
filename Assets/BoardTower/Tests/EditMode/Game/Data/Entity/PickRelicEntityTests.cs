@@ -167,6 +167,83 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         }
 
         [Test]
+        public void GetTotalValue_WhenValueIsNull_ReturnsZero()
+        {
+            var total = _entity.GetTotalValue(RelicType.Charm);
+
+            Assert.That(total, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetTotalValue_WhenNoRelicMatches_ReturnsZero()
+        {
+            var boots = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 100, 50, true);
+            _entity.Set(new PickRelicVO(new[] { boots }));
+
+            var total = _entity.GetTotalValue(RelicType.Charm);
+
+            Assert.That(total, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetTotalValue_WhenProbabilityIsHundred_ReturnsValue()
+        {
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 100, 50, false);
+            _entity.Set(new PickRelicVO(new[] { charm }));
+
+            var total = _entity.GetTotalValue(RelicType.Charm);
+
+            Assert.That(total, Is.EqualTo(50));
+        }
+
+        [Test]
+        public void GetTotalValue_WhenProbabilityIsZero_ReturnsZero()
+        {
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 50, false);
+            _entity.Set(new PickRelicVO(new[] { charm }));
+
+            var total = _entity.GetTotalValue(RelicType.Charm);
+
+            Assert.That(total, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetTotalValue_WhenMultipleRelicsMatch_SumsValues()
+        {
+            var charm1 = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 100, 20, false);
+            var charm2 = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 100, 30, false);
+            _entity.Set(new PickRelicVO(new[] { charm1, charm2 }));
+
+            var total = _entity.GetTotalValue(RelicType.Charm);
+
+            Assert.That(total, Is.EqualTo(50));
+        }
+
+        [Test]
+        public void GetTotalValue_WhenOnlyHitRelicsExist_SumsOnlyHitRelics()
+        {
+            var hit = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 100, 20, false);
+            var miss = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 30, false);
+            _entity.Set(new PickRelicVO(new[] { hit, miss }));
+
+            var total = _entity.GetTotalValue(RelicType.Charm);
+
+            Assert.That(total, Is.EqualTo(20));
+        }
+
+        [Test]
+        public void GetTotalValue_WhenOtherTypeRelicHasHundredProbability_IgnoresOtherType()
+        {
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 100, 20, false);
+            var chalice = new RelicVO(RelicType.Chalice.ToInt32(), "Chalice", "desc", 100, 40, false);
+            _entity.Set(new PickRelicVO(new[] { charm, chalice }));
+
+            var total = _entity.GetTotalValue(RelicType.Charm);
+
+            Assert.That(total, Is.EqualTo(20));
+        }
+
+        [Test]
         public void GetTotalRate_WhenValueIsNull_ReturnsOne()
         {
             var rate = _entity.GetTotalRate(RelicType.Charm);

@@ -80,8 +80,6 @@ namespace BoardTower.Game.Application
     {
         public const int BASE_GEM_VALUE = 100;
         public const int BASE_ROUND_CLEAR_VALUE = 500;
-
-        public const float HALVED_RATE = 1.5f;
     }
 
     public sealed class AchievementConfig

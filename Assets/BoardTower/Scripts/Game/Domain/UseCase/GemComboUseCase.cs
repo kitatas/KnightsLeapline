@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BoardTower.Game.Application;
 using BoardTower.Game.Data.Entity;
 using R3;
@@ -55,12 +56,11 @@ namespace BoardTower.Game.Domain.UseCase
 
         private bool IsComboContinuation()
         {
-            if (_pickRelicEntity.effect.isComboContinuation)
-            {
-                return Random.Range(0, 100) > RelicConfig.CONTINUATION_THRESHOLD;
-            }
+            var relics = _pickRelicEntity.Finds(RelicType.Medal);
+            if (relics == null) return false;
 
-            return false;
+            return relics
+                .Any(x => Random.Range(0, 100) < x.probability);
         }
 
         void IDisposable.Dispose()

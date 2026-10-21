@@ -72,7 +72,7 @@ namespace BoardTower.Game.Domain.UseCase
         {
             var name = _localeRepository.Get(relic.relicName);
             var content = _localeRepository.Get(relic.content);
-            return new RelicVO(relic.type.ToInt32(), name, content, relic.isUniq);
+            return new RelicVO(relic.type.ToInt32(), name, content, relic.probability, relic.value, relic.isUniq);
         }
 
         void IDisposable.Dispose()

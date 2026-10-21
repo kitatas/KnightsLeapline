@@ -111,6 +111,8 @@ namespace BoardTower.Game.Data.DataStore.Tables
                     new MasterMemory.Meta.MetaProperty(typeof(RelicMaster).GetProperty("Type")),
                     new MasterMemory.Meta.MetaProperty(typeof(RelicMaster).GetProperty("Name")),
                     new MasterMemory.Meta.MetaProperty(typeof(RelicMaster).GetProperty("Content")),
+                    new MasterMemory.Meta.MetaProperty(typeof(RelicMaster).GetProperty("Probability")),
+                    new MasterMemory.Meta.MetaProperty(typeof(RelicMaster).GetProperty("Value")),
                     new MasterMemory.Meta.MetaProperty(typeof(RelicMaster).GetProperty("IsUniq")),
                 },
                 new MasterMemory.Meta.MetaIndex[]{

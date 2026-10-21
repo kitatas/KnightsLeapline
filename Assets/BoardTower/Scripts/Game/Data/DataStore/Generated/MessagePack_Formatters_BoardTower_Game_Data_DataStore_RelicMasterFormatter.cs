@@ -24,6 +24,10 @@ namespace MessagePack.Formatters.BoardTower.Game.Data.DataStore
         private static global::System.ReadOnlySpan<byte> GetSpan_Name() => new byte[1 + 4] { 164, 78, 97, 109, 101 };
         // Content
         private static global::System.ReadOnlySpan<byte> GetSpan_Content() => new byte[1 + 7] { 167, 67, 111, 110, 116, 101, 110, 116 };
+        // Probability
+        private static global::System.ReadOnlySpan<byte> GetSpan_Probability() => new byte[1 + 11] { 171, 80, 114, 111, 98, 97, 98, 105, 108, 105, 116, 121 };
+        // Value
+        private static global::System.ReadOnlySpan<byte> GetSpan_Value() => new byte[1 + 5] { 165, 86, 97, 108, 117, 101 };
         // IsUniq
         private static global::System.ReadOnlySpan<byte> GetSpan_IsUniq() => new byte[1 + 6] { 166, 73, 115, 85, 110, 105, 113 };
 
@@ -36,13 +40,17 @@ namespace MessagePack.Formatters.BoardTower.Game.Data.DataStore
             }
 
             var formatterResolver = options.Resolver;
-            writer.WriteMapHeader(4);
+            writer.WriteMapHeader(6);
             writer.WriteRaw(GetSpan_Type());
             writer.Write(value.Type);
             writer.WriteRaw(GetSpan_Name());
             global::MessagePack.FormatterResolverExtensions.GetFormatterWithVerify<string>(formatterResolver).Serialize(ref writer, value.Name, options);
             writer.WriteRaw(GetSpan_Content());
             global::MessagePack.FormatterResolverExtensions.GetFormatterWithVerify<string>(formatterResolver).Serialize(ref writer, value.Content, options);
+            writer.WriteRaw(GetSpan_Probability());
+            writer.Write(value.Probability);
+            writer.WriteRaw(GetSpan_Value());
+            writer.Write(value.Value);
             writer.WriteRaw(GetSpan_IsUniq());
             writer.Write(value.IsUniq);
         }
@@ -60,6 +68,8 @@ namespace MessagePack.Formatters.BoardTower.Game.Data.DataStore
             var __Type__ = default(int);
             var __Name__ = default(string);
             var __Content__ = default(string);
+            var __Probability__ = default(int);
+            var __Value__ = default(int);
             var __IsUniq__ = default(bool);
 
             for (int i = 0; i < length; i++)
@@ -87,6 +97,16 @@ namespace MessagePack.Formatters.BoardTower.Game.Data.DataStore
 
                         __Content__ = global::MessagePack.FormatterResolverExtensions.GetFormatterWithVerify<string>(formatterResolver).Deserialize(ref reader, options);
                         continue;
+                    case 11:
+                        if (!global::System.MemoryExtensions.SequenceEqual(stringKey, GetSpan_Probability().Slice(1))) { goto FAIL; }
+
+                        __Probability__ = reader.ReadInt32();
+                        continue;
+                    case 5:
+                        if (global::MessagePack.Internal.AutomataKeyGen.GetKey(ref stringKey) != 435761733974UL) { goto FAIL; }
+
+                        __Value__ = reader.ReadInt32();
+                        continue;
                     case 6:
                         if (global::MessagePack.Internal.AutomataKeyGen.GetKey(ref stringKey) != 124697636598601UL) { goto FAIL; }
 
@@ -96,7 +116,7 @@ namespace MessagePack.Formatters.BoardTower.Game.Data.DataStore
                 }
             }
 
-            var ____result = new global::BoardTower.Game.Data.DataStore.RelicMaster(__Type__, __Name__, __Content__, __IsUniq__);
+            var ____result = new global::BoardTower.Game.Data.DataStore.RelicMaster(__Type__, __Name__, __Content__, __Probability__, __Value__, __IsUniq__);
             reader.Depth--;
             return ____result;
         }

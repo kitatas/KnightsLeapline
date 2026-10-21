@@ -374,9 +374,11 @@ namespace BoardTower.Game.Application
         public readonly RelicType type;
         public readonly string relicName;
         public readonly string content;
+        public readonly int probability;
+        public readonly int value;
         public readonly bool isUniq;
 
-        public RelicVO(int type, string relicName, string content, bool isUniq)
+        public RelicVO(int type, string relicName, string content, int probability, int value, bool isUniq)
         {
             var t = type.ToRelicType();
             if (t is RelicType.None)
@@ -385,6 +387,8 @@ namespace BoardTower.Game.Application
             this.type = t;
             this.relicName = relicName;
             this.content = content;
+            this.probability = probability;
+            this.value = value;
             this.isUniq = isUniq;
         }
     }

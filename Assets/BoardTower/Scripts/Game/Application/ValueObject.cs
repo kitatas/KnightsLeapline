@@ -253,12 +253,17 @@ namespace BoardTower.Game.Application
             this.plyNum = plyNum;
         }
 
-        public static EventResultVO Create(SquareEventType type, RelicEffectVO relicEffect)
+        public static EventResultVO Create(SquareEventType type, PickRelicVO pickRelic)
         {
-            var isBelt = !relicEffect.isIgnoreBelt && type.IsBeltEvent();
-            var isBlockBelt = !relicEffect.canMoveToBlock && type is SquareEventType.Block;
-            var additionGem = relicEffect.hasAdditionGem && LotGem() ? 1 : 0;
-            var additionHeart = relicEffect.hasAdditionHeart && LotHeart() ? 1 : 0;
+            var types = pickRelic.relics.ToArray();
+            var isBelt = !types.Any(x => x.type is RelicType.Anchor) && type.IsBeltEvent();
+            var isBlockBelt = !types.Any(x => x.type is RelicType.Boots) && type is SquareEventType.Block;
+
+            var additionGemRelic = types.FirstOrDefault(x => x.type is RelicType.Charm);
+            var additionGem = Random.Range(0, 100) < additionGemRelic?.probability ? additionGemRelic.value : 0;
+
+            var additionHeartRelic = types.FirstOrDefault(x => x.type is RelicType.Chalice);
+            var additionHeart = Random.Range(0, 100) < additionHeartRelic?.probability ? additionHeartRelic.value : 0;
 
             return new EventResultVO(
                 type,
@@ -267,9 +272,6 @@ namespace BoardTower.Game.Application
                 type is SquareEventType.Ply ? 1 + additionHeart : 0
             );
         }
-
-        private static bool LotGem() => Random.Range(0, 100) > RelicConfig.ADDITION_THRESHOLD;
-        private static bool LotHeart() => Random.Range(0, 100) > RelicConfig.ADDITION_THRESHOLD;
     }
 
     public sealed class RoundVO

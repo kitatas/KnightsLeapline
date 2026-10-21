@@ -44,7 +44,7 @@ namespace BoardTower.Game.Domain.UseCase
                 _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_SQUARE_EVENT),
             });
 
-            return EventResultVO.Create(squareEvent.type, relicEffect);
+            return EventResultVO.Create(squareEvent.type, _pickRelicEntity.value);
         }
 
         private UniTask BeltAsync(SquareEventType type, CancellationToken token)

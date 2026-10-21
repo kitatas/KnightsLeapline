@@ -489,57 +489,192 @@ namespace BoardTower.Tests.EditMode.Game.Application
             Assert.That(sut.plyNum, Is.EqualTo(plyNum));
         }
 
+        private static PickRelicVO CreatePickRelic(
+            int charmProbability = 0, int charmValue = 0,
+            int chaliceProbability = 0, int chaliceValue = 0,
+            params RelicType[] others)
+        {
+            var relics = new[]
+                {
+                    new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", charmProbability, charmValue, false),
+                    new RelicVO(RelicType.Chalice.ToInt32(), "Chalice", "desc", chaliceProbability, chaliceValue, false),
+                }
+                .Concat(others.Select(x => new RelicVO(x.ToInt32(), x.ToString(), "desc", 0, 0, false)));
+
+            return new PickRelicVO(relics);
+        }
+
         [Test]
         public void EventResultVO_Create_WithGemType_SetsGemNumToOne()
         {
-            var relicEffect = RelicEffectVO.Create(Enumerable.Empty<RelicType>());
-
-            var sut = EventResultVO.Create(SquareEventType.Gem, relicEffect);
+            var sut = EventResultVO.Create(SquareEventType.Gem, CreatePickRelic());
 
             Assert.That(sut.type, Is.EqualTo(SquareEventType.Gem));
-            Assert.That(sut.gemNum, Is.GreaterThanOrEqualTo(1));
+            Assert.That(sut.gemNum, Is.EqualTo(1));
+            Assert.That(sut.plyNum, Is.EqualTo(0));
         }
 
         [Test]
         public void EventResultVO_Create_WithPlyType_SetsPlyNumToOne()
         {
-            var relicEffect = RelicEffectVO.Create(Enumerable.Empty<RelicType>());
-
-            var sut = EventResultVO.Create(SquareEventType.Ply, relicEffect);
+            var sut = EventResultVO.Create(SquareEventType.Ply, CreatePickRelic());
 
             Assert.That(sut.type, Is.EqualTo(SquareEventType.Ply));
-            Assert.That(sut.plyNum, Is.GreaterThanOrEqualTo(1));
+            Assert.That(sut.plyNum, Is.EqualTo(1));
+            Assert.That(sut.gemNum, Is.EqualTo(0));
         }
 
         [Test]
         public void EventResultVO_Create_WithEmptyType_SetsGemAndPlyToZero()
         {
-            var relicEffect = RelicEffectVO.Create(Enumerable.Empty<RelicType>());
+            var pickRelic = CreatePickRelic(100, 2, 100, 2);
 
-            var sut = EventResultVO.Create(SquareEventType.Empty, relicEffect);
+            var sut = EventResultVO.Create(SquareEventType.Empty, pickRelic);
 
             Assert.That(sut.gemNum, Is.EqualTo(0));
             Assert.That(sut.plyNum, Is.EqualTo(0));
         }
 
         [Test]
-        public void EventResultVO_Create_WithBeltAndIgnoreBeltRelic_IsBeltIsFalse()
+        public void EventResultVO_Create_WithGemAndCharmAlwaysLotted_AddsCharmValue()
         {
-            var relicEffect = RelicEffectVO.Create(new[] { RelicType.Anchor });
+            var pickRelic = CreatePickRelic(charmProbability: 100, charmValue: 2);
 
-            var sut = EventResultVO.Create(SquareEventType.BeltRight, relicEffect);
+            var sut = EventResultVO.Create(SquareEventType.Gem, pickRelic);
+
+            Assert.That(sut.gemNum, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithGemAndCharmNeverLotted_DoesNotAddCharmValue()
+        {
+            var pickRelic = CreatePickRelic(charmProbability: 0, charmValue: 2);
+
+            var sut = EventResultVO.Create(SquareEventType.Gem, pickRelic);
+
+            Assert.That(sut.gemNum, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithGemAndChaliceAlwaysLotted_DoesNotAffectGemNum()
+        {
+            var pickRelic = CreatePickRelic(chaliceProbability: 100, chaliceValue: 2);
+
+            var sut = EventResultVO.Create(SquareEventType.Gem, pickRelic);
+
+            Assert.That(sut.gemNum, Is.EqualTo(1));
+            Assert.That(sut.plyNum, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithPlyAndChaliceAlwaysLotted_AddsChaliceValue()
+        {
+            var pickRelic = CreatePickRelic(chaliceProbability: 100, chaliceValue: 2);
+
+            var sut = EventResultVO.Create(SquareEventType.Ply, pickRelic);
+
+            Assert.That(sut.plyNum, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithPlyAndChaliceNeverLotted_DoesNotAddChaliceValue()
+        {
+            var pickRelic = CreatePickRelic(chaliceProbability: 0, chaliceValue: 2);
+
+            var sut = EventResultVO.Create(SquareEventType.Ply, pickRelic);
+
+            Assert.That(sut.plyNum, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithPlyAndCharmAlwaysLotted_DoesNotAffectPlyNum()
+        {
+            var pickRelic = CreatePickRelic(charmProbability: 100, charmValue: 2);
+
+            var sut = EventResultVO.Create(SquareEventType.Ply, pickRelic);
+
+            Assert.That(sut.plyNum, Is.EqualTo(1));
+            Assert.That(sut.gemNum, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithBeltAndAnchor_IsBeltIsFalse()
+        {
+            var pickRelic = CreatePickRelic(others: RelicType.Anchor);
+
+            var sut = EventResultVO.Create(SquareEventType.BeltRight, pickRelic);
 
             Assert.That(sut.isBelt, Is.False);
         }
 
         [Test]
-        public void EventResultVO_Create_WithBeltAndNoRelic_IsBeltIsTrue()
+        public void EventResultVO_Create_WithBeltAndNoAnchor_IsBeltIsTrue()
         {
-            var relicEffect = RelicEffectVO.Create(Enumerable.Empty<RelicType>());
-
-            var sut = EventResultVO.Create(SquareEventType.BeltRight, relicEffect);
+            var sut = EventResultVO.Create(SquareEventType.BeltRight, CreatePickRelic());
 
             Assert.That(sut.isBelt, Is.True);
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithBlockAndNoBoots_IsBeltIsTrue()
+        {
+            var sut = EventResultVO.Create(SquareEventType.Block, CreatePickRelic());
+
+            Assert.That(sut.isBelt, Is.True);
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithBlockAndBoots_IsBeltIsFalse()
+        {
+            var pickRelic = CreatePickRelic(others: RelicType.Boots);
+
+            var sut = EventResultVO.Create(SquareEventType.Block, pickRelic);
+
+            Assert.That(sut.isBelt, Is.False);
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithEmptyAndNoRelics_IsBeltIsFalse()
+        {
+            var sut = EventResultVO.Create(SquareEventType.Empty, CreatePickRelic());
+
+            Assert.That(sut.isBelt, Is.False);
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithoutCharm_DoesNotAddGem()
+        {
+            var pickRelic = new PickRelicVO(new[]
+            {
+                new RelicVO(RelicType.Chalice.ToInt32(), "Chalice", "desc", 100, 2, false),
+            });
+
+            var sut = EventResultVO.Create(SquareEventType.Gem, pickRelic);
+
+            Assert.That(sut.gemNum, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithoutChalice_DoesNotAddPly()
+        {
+            var pickRelic = new PickRelicVO(new[]
+            {
+                new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 100, 2, false),
+            });
+
+            var sut = EventResultVO.Create(SquareEventType.Ply, pickRelic);
+
+            Assert.That(sut.plyNum, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void EventResultVO_Create_WithPickRelicEmpty_UsesBaseValuesAndBeltRules()
+        {
+            var gem = EventResultVO.Create(SquareEventType.Gem, PickRelicVO.Empty());
+            var belt = EventResultVO.Create(SquareEventType.BeltRight, PickRelicVO.Empty());
+
+            Assert.That(gem.gemNum, Is.EqualTo(1));
+            Assert.That(belt.isBelt, Is.True);
         }
 
         // ---- RoundVO ----

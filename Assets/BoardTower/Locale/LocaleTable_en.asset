@@ -237,35 +237,35 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124356
-    m_Localized: 70% chance for +1 Coin
+    m_Localized: '{0}% chance for +{1} Coin'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124357
-    m_Localized: 70% chance for +1 Heart
+    m_Localized: '{0}% chance for +{1} Heart'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124358
-    m_Localized: 70% chance to keep Combo
+    m_Localized: '{0}% chance to keep Combo'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124359
-    m_Localized: "Moves & Goal \xD70.5, Coin Score \xD72.25"
+    m_Localized: "Moves & Goal \xD70.5, Coin Score Rate +{1}%"
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124360
-    m_Localized: "Extra Coin: Score \xD72.0"
+    m_Localized: 'Extra Coin: Score Rate +{1}%'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124361
-    m_Localized: 'Get Coin: Score +10%'
+    m_Localized: 'Get Coin: Score Rate +{1}%'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124362
-    m_Localized: 'Clear Round: Score +10%'
+    m_Localized: 'Clear Round: Score Rate +{1}%'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124363
-    m_Localized: '70% chance: Score +50'
+    m_Localized: '{0}% chance: Score +{1}'
     m_Metadata:
       m_Items: []
   - m_Id: 30790907711184896

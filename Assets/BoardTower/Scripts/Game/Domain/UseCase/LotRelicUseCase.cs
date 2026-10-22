@@ -7,6 +7,7 @@ using BoardTower.Game.Application;
 using BoardTower.Game.Data.Entity;
 using BoardTower.Game.Domain.Ports;
 using BoardTower.Game.Domain.Repository;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using FastEnumUtility;
 using MessagePipe;
@@ -71,7 +72,7 @@ namespace BoardTower.Game.Domain.UseCase
         private RelicVO Convert(RelicVO relic)
         {
             var name = _localeRepository.Get(relic.relicName);
-            var content = _localeRepository.Get(relic.content);
+            var content = ZString.Format(_localeRepository.Get(relic.content), relic.probability, relic.value);
             return new RelicVO(relic.type.ToInt32(), name, content, relic.probability, relic.value, relic.isUniq);
         }
 

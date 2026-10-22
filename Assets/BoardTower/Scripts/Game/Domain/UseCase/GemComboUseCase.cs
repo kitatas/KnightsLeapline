@@ -1,9 +1,7 @@
 using System;
-using System.Linq;
 using BoardTower.Game.Application;
 using BoardTower.Game.Data.Entity;
 using R3;
-using Random = UnityEngine.Random;
 
 namespace BoardTower.Game.Domain.UseCase
 {
@@ -44,7 +42,7 @@ namespace BoardTower.Game.Domain.UseCase
                 Increment();
                 _eventLogEntity.Add(EventLogType.Combo, _gemComboEntity.value);
             }
-            else if (IsComboContinuation())
+            else if (_pickRelicEntity.FindAnyProbability(RelicType.Baton))
             {
                 _eventLogEntity.Add(EventLogType.Keep, _gemComboEntity.value);
             }
@@ -52,15 +50,6 @@ namespace BoardTower.Game.Domain.UseCase
             {
                 SetUp();
             }
-        }
-
-        private bool IsComboContinuation()
-        {
-            var relics = _pickRelicEntity.Finds(RelicType.Medal);
-            if (relics == null) return false;
-
-            return relics
-                .Any(x => Random.Range(0, 100) < x.probability);
         }
 
         void IDisposable.Dispose()

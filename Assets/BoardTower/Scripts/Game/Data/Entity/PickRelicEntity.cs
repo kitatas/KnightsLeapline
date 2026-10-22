@@ -36,6 +36,12 @@ namespace BoardTower.Game.Data.Entity
             return Finds(type).Any();
         }
 
+        public bool FindAnyProbability(RelicType type)
+        {
+            return Finds(type)
+                .Any(x => Random.Range(0, 100) < x.probability);
+        }
+
         public int GetTotalValue(RelicType type)
         {
             var targets = Finds(type);

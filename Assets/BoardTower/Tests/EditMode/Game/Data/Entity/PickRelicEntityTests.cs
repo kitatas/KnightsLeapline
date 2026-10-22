@@ -230,6 +230,71 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         }
 
         [Test]
+        public void FindAnyProbability_WhenValueIsNull_ReturnsFalse()
+        {
+            var result = _entity.FindAnyProbability(RelicType.Charm);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void FindAnyProbability_WhenNoRelicMatches_ReturnsFalse()
+        {
+            var boots = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 100, 50, true);
+            _entity.Set(new PickRelicVO(new[] { boots }));
+
+            var result = _entity.FindAnyProbability(RelicType.Charm);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void FindAnyProbability_WhenProbabilityIsHundred_ReturnsTrue()
+        {
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 100, 50, false);
+            _entity.Set(new PickRelicVO(new[] { charm }));
+
+            var result = _entity.FindAnyProbability(RelicType.Charm);
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void FindAnyProbability_WhenProbabilityIsZero_ReturnsFalse()
+        {
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 50, false);
+            _entity.Set(new PickRelicVO(new[] { charm }));
+
+            var result = _entity.FindAnyProbability(RelicType.Charm);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void FindAnyProbability_WhenOnlyOneRelicHits_ReturnsTrue()
+        {
+            var hit = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 100, 20, false);
+            var miss = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 30, false);
+            _entity.Set(new PickRelicVO(new[] { miss, hit }));
+
+            var result = _entity.FindAnyProbability(RelicType.Charm);
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void FindAnyProbability_WhenOtherTypeRelicHasHundredProbability_ReturnsFalse()
+        {
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 20, false);
+            var chalice = new RelicVO(RelicType.Chalice.ToInt32(), "Chalice", "desc", 100, 40, false);
+            _entity.Set(new PickRelicVO(new[] { charm, chalice }));
+
+            var result = _entity.FindAnyProbability(RelicType.Charm);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
         public void GetTotalValue_WhenValueIsNull_ReturnsZero()
         {
             var total = _entity.GetTotalValue(RelicType.Charm);

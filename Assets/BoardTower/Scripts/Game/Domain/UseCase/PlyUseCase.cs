@@ -34,8 +34,7 @@ namespace BoardTower.Game.Domain.UseCase
         {
             var plyCount = round > 0 ? _roundRepository.Find(round)?.plyCount ?? 0 : 0;
 
-            var relicEffect = _pickRelicEntity.effect;
-            if (relicEffect.isPlyHalved) plyCount = Mathf.CeilToInt(plyCount / 2.0f);
+            if (_pickRelicEntity.FindAny(RelicType.Pact)) plyCount = Mathf.CeilToInt(plyCount / 2.0f);
 
             _plyEntity.SetUp(plyCount);
             _ply.Value = _plyEntity.value;

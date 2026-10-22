@@ -167,6 +167,69 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         }
 
         [Test]
+        public void FindAny_WhenValueIsNull_ReturnsFalse()
+        {
+            var result = _entity.FindAny(RelicType.Boots);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void FindAny_WhenValueIsEmpty_ReturnsFalse()
+        {
+            _entity.Set(PickRelicVO.Empty());
+
+            var result = _entity.FindAny(RelicType.Boots);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void FindAny_WhenNoRelicMatches_ReturnsFalse()
+        {
+            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
+            _entity.Set(new PickRelicVO(new[] { relic }));
+
+            var result = _entity.FindAny(RelicType.Charm);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void FindAny_WhenOneRelicMatches_ReturnsTrue()
+        {
+            var boots = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 0, false);
+            _entity.Set(new PickRelicVO(new[] { boots, charm }));
+
+            var result = _entity.FindAny(RelicType.Charm);
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void FindAny_WhenProbabilityIsZero_ReturnsTrue()
+        {
+            var charm = new RelicVO(RelicType.Charm.ToInt32(), "Charm", "desc", 0, 50, false);
+            _entity.Set(new PickRelicVO(new[] { charm }));
+
+            var result = _entity.FindAny(RelicType.Charm);
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void FindAny_AfterAdd_ReturnsTrue()
+        {
+            _entity.Set(PickRelicVO.Empty());
+            _entity.Add(new RelicVO(RelicType.Anchor.ToInt32(), "Anchor", "desc", 0, 0, true));
+
+            var result = _entity.FindAny(RelicType.Anchor);
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
         public void GetTotalValue_WhenValueIsNull_ReturnsZero()
         {
             var total = _entity.GetTotalValue(RelicType.Charm);

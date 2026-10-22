@@ -44,7 +44,7 @@ namespace BoardTower.Game.Domain.UseCase
         {
             var rule = _chessmenMovementRepository.Find(_chessmenEntity.chessmenType);
             var highlightVos = ChessmenHelper.GetMovableSquares(_chessmenEntity.square, rule)
-                .Where(x => _boardEntity.IsMovable(x, _pickRelicEntity.effect.canMoveToBlock))
+                .Where(x => _boardEntity.IsMovable(x, _pickRelicEntity.FindAny(RelicType.Boots)))
                 .Select(x => new HighlightSquareVO(x, HighlightSquareType.Movable))
                 .ToArray();
 

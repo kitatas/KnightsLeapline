@@ -1,4 +1,5 @@
 using System;
+using BoardTower.Game.Application;
 using BoardTower.Game.Data.Entity;
 using BoardTower.Game.Domain.Repository;
 using R3;
@@ -30,8 +31,7 @@ namespace BoardTower.Game.Domain.UseCase
         {
             var gemCount = round > 0 ? _roundRepository.Find(round)?.gemCount ?? 0 : 0;
 
-            var relicEffect = _pickRelicEntity.effect;
-            if (relicEffect.isRoundClearHalved) gemCount = Mathf.CeilToInt(gemCount / 2.0f);
+            if (_pickRelicEntity.FindAny(RelicType.Pact)) gemCount = Mathf.CeilToInt(gemCount / 2.0f);
 
             _roundClearGemEntity.Set(gemCount);
             _roundClear.Value = _roundClearGemEntity.value;

@@ -30,17 +30,15 @@ namespace BoardTower.Game.Domain.UseCase
 
         public async UniTask<EventResultVO> ApplyEventAsync(CancellationToken token)
         {
-            var relicEffect = _pickRelicEntity.effect;
-
             var (squareEvent, index) = _boardEntity.FindEvent(_chessmenEntity.square);
             await (squareEvent.type switch
             {
                 SquareEventType.Empty => UniTask.Yield(token),
-                SquareEventType.Block => relicEffect.canMoveToBlock ? UniTask.Yield(token) : BeltBlockAsync(token),
+                SquareEventType.Block => _pickRelicEntity.FindAny(RelicType.Boots) ? UniTask.Yield(token) : BeltBlockAsync(token),
                 SquareEventType.Gem => OverrideSquareEventAsync(index, SquareEventType.Empty, token),
                 SquareEventType.Ply => OverrideSquareEventAsync(index, SquareEventType.Empty, token),
-                SquareEventType.Collapse => relicEffect.isIgnoreCollapse ? UniTask.Yield(token) : OverrideSquareEventAsync(index, SquareEventType.Block, token),
-                var type when type.IsBeltEvent() => relicEffect.isIgnoreBelt ? UniTask.Yield(token) : BeltAsync(squareEvent.type, token),
+                SquareEventType.Collapse => _pickRelicEntity.FindAny(RelicType.Codex) ? UniTask.Yield(token) : OverrideSquareEventAsync(index, SquareEventType.Block, token),
+                var type when type.IsBeltEvent() => _pickRelicEntity.FindAny(RelicType.Anchor) ? UniTask.Yield(token) : BeltAsync(squareEvent.type, token),
                 _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_SQUARE_EVENT),
             });
 

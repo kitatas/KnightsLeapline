@@ -31,6 +31,11 @@ namespace BoardTower.Game.Data.Entity
             return relics.ToList().FindAll(x => x.type == type);
         }
 
+        public bool FindAny(RelicType type)
+        {
+            return Finds(type).Any();
+        }
+
         public int GetTotalValue(RelicType type)
         {
             var targets = Finds(type);

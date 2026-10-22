@@ -448,59 +448,6 @@ namespace BoardTower.Game.Application
         }
     }
 
-    public sealed class RelicEffectVO
-    {
-        public readonly bool canMoveToBlock;
-        public readonly bool isIgnoreCollapse;
-        public readonly bool isIgnoreBelt;
-        public readonly bool isComboContinuation;
-        public readonly bool isOverflowRoundGem;
-        public readonly bool isPlyHalved;
-        public readonly bool isRoundClearHalved;
-        public readonly bool hasAdditionGem;
-        public readonly bool hasAdditionHeart;
-        public readonly int rideOnCollapseNum;
-        public readonly int gemUnitRateNum;
-        public readonly int roundClearRateNum;
-
-        public RelicEffectVO(bool canMoveToBlock, bool isIgnoreCollapse, bool isIgnoreBelt, bool isComboContinuation,
-            bool isPlyHalved, bool isRoundClearHalved, bool isOverflowRoundGem, bool hasAdditionGem,
-            bool hasAdditionHeart, int rideOnCollapseNum, int gemUnitRateNum, int roundClearRateNum)
-        {
-            this.canMoveToBlock = canMoveToBlock;
-            this.isIgnoreCollapse = isIgnoreCollapse;
-            this.isIgnoreBelt = isIgnoreBelt;
-            this.isComboContinuation = isComboContinuation;
-            this.isOverflowRoundGem = isOverflowRoundGem;
-            this.isPlyHalved = isPlyHalved;
-            this.isRoundClearHalved = isRoundClearHalved;
-            this.hasAdditionGem = hasAdditionGem;
-            this.hasAdditionHeart = hasAdditionHeart;
-            this.rideOnCollapseNum = rideOnCollapseNum;
-            this.gemUnitRateNum = gemUnitRateNum;
-            this.roundClearRateNum = roundClearRateNum;
-        }
-
-        public static RelicEffectVO Create(IEnumerable<RelicType> relicTypes)
-        {
-            var types = relicTypes as RelicType[] ?? relicTypes.ToArray();
-            return new RelicEffectVO(
-                canMoveToBlock: types.Any(x => new[] { RelicType.Boots }.Contains(x)),
-                isIgnoreCollapse: types.Any(x => new[] { RelicType.Codex }.Contains(x)),
-                isIgnoreBelt: types.Any(x => new[] { RelicType.Anchor }.Contains(x)),
-                isComboContinuation: types.Any(x => new[] { RelicType.Baton }.Contains(x)),
-                isOverflowRoundGem: types.Any(x => new[] { RelicType.Seal }.Contains(x)),
-                isPlyHalved: types.Any(x => new[] { RelicType.Pact }.Contains(x)),
-                isRoundClearHalved: types.Any(x => new[] { RelicType.Pact }.Contains(x)),
-                hasAdditionGem: types.Any(x => new[] { RelicType.Charm }.Contains(x)),
-                hasAdditionHeart: types.Any(x => new[] { RelicType.Chalice }.Contains(x)),
-                rideOnCollapseNum: types.Count(x => new[] { RelicType.Medal }.Contains(x)),
-                gemUnitRateNum: types.Count(x => new[] { RelicType.Scales }.Contains(x)),
-                roundClearRateNum: types.Count(x => new[] { RelicType.Banner }.Contains(x))
-            );
-        }
-    }
-
     public sealed class ScoreRateVO
     {
         public readonly ScoreRateType type;

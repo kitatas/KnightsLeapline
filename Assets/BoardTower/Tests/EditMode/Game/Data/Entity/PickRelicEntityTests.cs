@@ -54,27 +54,6 @@ namespace BoardTower.Tests.EditMode.Game.Data.Entity
         }
 
         [Test]
-        public void Effect_WhenValueIsNull_ReturnsDefaultEffect()
-        {
-            var effect = _entity.effect;
-
-            Assert.That(effect, Is.Not.Null);
-            Assert.That(effect.canMoveToBlock, Is.False);
-            Assert.That(effect.isIgnoreBelt, Is.False);
-        }
-
-        [Test]
-        public void Effect_WithBoots_SetsCanMoveToBlockTrue()
-        {
-            var relic = new RelicVO(RelicType.Boots.ToInt32(), "Boots", "desc", 0, 0, true);
-            _entity.Set(new PickRelicVO(new[] { relic }));
-
-            var effect = _entity.effect;
-
-            Assert.That(effect.canMoveToBlock, Is.True);
-        }
-
-        [Test]
         public void Add_AppendsRelicToCollection()
         {
             _entity.Set(PickRelicVO.Empty());

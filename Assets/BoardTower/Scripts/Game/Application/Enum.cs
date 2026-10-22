@@ -119,8 +119,6 @@ namespace BoardTower.Game.Application
         RoundGem = 1,
         RoundClear = 2,
         GemCombo = 3,
-        GemUnitRelic = 4,
-        RoundClearRelic = 5,
     }
 
     public enum AchievementType

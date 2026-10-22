@@ -1,11 +1,9 @@
 using System;
-using System.Linq;
 using BoardTower.Game.Application;
 using BoardTower.Game.Data.Entity;
 using BoardTower.Game.Domain.Repository;
 using R3;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace BoardTower.Game.Domain.UseCase
 {
@@ -44,9 +42,8 @@ namespace BoardTower.Game.Domain.UseCase
         {
             var roundRate = _scoreRateRepository.FindRoundGemRate(_roundEntity.value);
             var comboRate = _scoreRateRepository.FindGemComboRate(_gemComboEntity.value);
-            var relicEffect = _pickRelicEntity.effect;
-            var unitRelicRate = _scoreRateRepository.FindGemUnitRelicRate(relicEffect.gemUnitRateNum);
-            var rate = roundRate.value * comboRate.value * unitRelicRate.value;
+            var unitRelicRate = _pickRelicEntity.GetTotalRate(RelicType.Scales);
+            var rate = roundRate.value * comboRate.value * unitRelicRate;
             if (isClear) rate *= _pickRelicEntity.GetTotalRate(RelicType.Seal);
             rate *= _pickRelicEntity.GetTotalRate(RelicType.Pact);
             var value = Mathf.CeilToInt(ScoreConfig.BASE_GEM_VALUE * rate) * gemNum;
@@ -73,9 +70,8 @@ namespace BoardTower.Game.Domain.UseCase
         public void ApplyRoundClearScore()
         {
             var roundRate = _scoreRateRepository.FindRoundClearRate(_roundEntity.value);
-            var relicEffect = _pickRelicEntity.effect;
-            var clearRelicRate = _scoreRateRepository.FindRoundClearRelicRate(relicEffect.roundClearRateNum);
-            var rate = roundRate.value * clearRelicRate.value;
+            var clearRelicRate = _pickRelicEntity.GetTotalRate(RelicType.Banner);
+            var rate = roundRate.value * clearRelicRate;
             var value = Mathf.CeilToInt(ScoreConfig.BASE_ROUND_CLEAR_VALUE * rate);
             Add(value);
         }

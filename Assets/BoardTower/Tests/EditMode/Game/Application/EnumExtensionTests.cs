@@ -95,7 +95,7 @@ namespace BoardTower.Tests.EditMode.Game.Application
 
         [TestCase(0, ScoreRateType.None)]
         [TestCase(1, ScoreRateType.RoundGem)]
-        [TestCase(5, ScoreRateType.RoundClearRelic)]
+        [TestCase(3, ScoreRateType.GemCombo)]
         public void ToScoreRateType_WithDefinedValue_ReturnsMatchingType(int value, ScoreRateType expected)
         {
             Assert.That(value.ToScoreRateType(), Is.EqualTo(expected));

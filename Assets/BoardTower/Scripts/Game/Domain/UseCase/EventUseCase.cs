@@ -42,7 +42,21 @@ namespace BoardTower.Game.Domain.UseCase
                 _ => throw new QuitExceptionVO(ExceptionConfig.INVALID_SQUARE_EVENT),
             });
 
-            return EventResultVO.Create(squareEvent.type, _pickRelicEntity.value);
+            return GetEventResult(squareEvent.type);
+        }
+
+        private EventResultVO GetEventResult(SquareEventType type)
+        {
+            var isBelt = !_pickRelicEntity.FindAny(RelicType.Anchor) && type.IsBeltEvent();
+            var isBlockBelt = !_pickRelicEntity.FindAny(RelicType.Boots) && type is SquareEventType.Block;
+            var gemNum = _pickRelicEntity.GetTotalValue(RelicType.Charm);
+            var plyNum = _pickRelicEntity.GetTotalValue(RelicType.Chalice);
+            return new EventResultVO(
+                type,
+                isBelt || isBlockBelt,
+                type is SquareEventType.Gem ? 1 + gemNum : 0,
+                type is SquareEventType.Ply ? 1 + plyNum : 0
+            );
         }
 
         private UniTask BeltAsync(SquareEventType type, CancellationToken token)

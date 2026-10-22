@@ -252,26 +252,6 @@ namespace BoardTower.Game.Application
             this.gemNum = gemNum;
             this.plyNum = plyNum;
         }
-
-        public static EventResultVO Create(SquareEventType type, PickRelicVO pickRelic)
-        {
-            var types = pickRelic.relics.ToArray();
-            var isBelt = !types.Any(x => x.type is RelicType.Anchor) && type.IsBeltEvent();
-            var isBlockBelt = !types.Any(x => x.type is RelicType.Boots) && type is SquareEventType.Block;
-
-            var additionGemRelic = types.FirstOrDefault(x => x.type is RelicType.Charm);
-            var additionGem = Random.Range(0, 100) < additionGemRelic?.probability ? additionGemRelic.value : 0;
-
-            var additionHeartRelic = types.FirstOrDefault(x => x.type is RelicType.Chalice);
-            var additionHeart = Random.Range(0, 100) < additionHeartRelic?.probability ? additionHeartRelic.value : 0;
-
-            return new EventResultVO(
-                type,
-                isBelt || isBlockBelt,
-                type is SquareEventType.Gem ? 1 + additionGem : 0,
-                type is SquareEventType.Ply ? 1 + additionHeart : 0
-            );
-        }
     }
 
     public sealed class RoundVO

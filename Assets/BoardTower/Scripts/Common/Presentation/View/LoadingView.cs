@@ -10,6 +10,7 @@ namespace BoardTower.Common.Presentation.View
         [SerializeField] private RectTransform body = default;
         [SerializeField] private RectTransform icon = default;
         [SerializeField] private TextMeshProUGUI loading = default;
+        [SerializeField] private CanvasGroup canvasGroup = default;
 
         private Sequence _tween;
 
@@ -62,13 +63,25 @@ namespace BoardTower.Common.Presentation.View
         public Tween FadeIn(float duration)
         {
             _tween?.Restart();
-            return Fade(40.0f, duration);
+            return DOTween.Sequence()
+                .AppendCallback(() => canvasGroup.blocksRaycasts = true)
+                .Append(canvasGroup
+                    .DOFade(1.0f, 0.0f)
+                    .SetEase(Ease.OutBack))
+                .Join(Fade(40.0f, duration))
+                .SetLink(gameObject);
         }
 
         public Tween FadeOut(float duration)
         {
             _tween?.Pause();
-            return Fade(body.rect.width, duration);
+            return DOTween.Sequence()
+                .Append(canvasGroup
+                    .DOFade(0.0f, duration)
+                    .SetEase(Ease.OutQuart))
+                .Join(Fade(body.rect.width, duration))
+                .AppendCallback(() => canvasGroup.blocksRaycasts = false)
+                .SetLink(gameObject);
         }
 
         private Tween Fade(float value, float duration)

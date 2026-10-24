@@ -23,22 +23,18 @@ namespace BoardTower.Boot.Presentation.View
             Kill();
 
             copyright.sprite = sprite;
-            _tween = DOTween.Sequence()
+            return _tween = DOTween.Sequence()
                 .Append(Fade(1.0f, duration))
                 .SetLink(gameObject);
-
-            return _tween;
         }
 
         public Tween FadeOut(float duration)
         {
             Kill();
 
-            _tween = DOTween.Sequence()
+            return _tween = DOTween.Sequence()
                 .Append(Fade(0.0f, duration))
                 .SetLink(gameObject);
-
-            return _tween;
         }
 
         public Tween FadeInOut(Sprite sprite, float duration)
@@ -46,13 +42,11 @@ namespace BoardTower.Boot.Presentation.View
             Kill();
 
             copyright.sprite = sprite;
-            _tween = DOTween.Sequence()
+            return _tween = DOTween.Sequence()
                 .Append(Fade(1.0f, duration))
                 .AppendInterval(SplashConfig.DISPLAY_DURATION)
                 .Append(Fade(0.0f, duration))
                 .SetLink(gameObject);
-
-            return _tween;
         }
 
         private Tween Fade(float value, float duration)
@@ -62,7 +56,7 @@ namespace BoardTower.Boot.Presentation.View
                 .SetEase(Ease.Linear);
         }
 
-        public void Kill()
+        private void Kill()
         {
             _tween?.Kill(true);
             _tween = null;

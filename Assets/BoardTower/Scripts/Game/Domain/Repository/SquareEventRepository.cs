@@ -12,19 +12,14 @@ namespace BoardTower.Game.Domain.Repository
 
         public SquareEventRepository(SquareEventTable squareEventTable)
         {
-            _squareEventMap = squareEventTable.all.ToDictionary(x  => x.type, x => x.ToVO());
+            _squareEventMap = squareEventTable.all.ToDictionary(x => x.type, x => x.ToVO());
         }
 
         public SquareEventVO Find(SquareEventType type)
         {
-            if (_squareEventMap.TryGetValue(type, out var vo))
-            {
-                return vo;
-            }
-            else
-            {
-                throw new QuitExceptionVO(ExceptionConfig.INVALID_SQUARE_EVENT);
-            }
+            return _squareEventMap.TryGetValue(type, out var vo)
+                ? vo
+                : throw new QuitExceptionVO(ExceptionConfig.INVALID_SQUARE_EVENT);
         }
     }
 }

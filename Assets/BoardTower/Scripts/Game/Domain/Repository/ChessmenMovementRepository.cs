@@ -17,14 +17,9 @@ namespace BoardTower.Game.Domain.Repository
 
         public ChessmenMovementRuleVO Find(ChessmenType type)
         {
-            if (_chessmenMovementRuleMasterTable.TryFindByType(type.ToInt32(), out var master))
-            {
-                return master.ToVO();
-            }
-            else
-            {
-                throw new QuitExceptionVO(ExceptionConfig.INVALID_CHESSMEN_MOVEMENT);
-            }
+            return _chessmenMovementRuleMasterTable.TryFindByType(type.ToInt32(), out var master)
+                ? master.ToVO()
+                : throw new QuitExceptionVO(ExceptionConfig.INVALID_CHESSMEN_MOVEMENT);
         }
     }
 }

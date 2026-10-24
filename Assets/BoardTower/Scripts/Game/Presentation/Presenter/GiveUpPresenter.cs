@@ -29,11 +29,7 @@ namespace BoardTower.Game.Presentation.Presenter
         UniTask IAsyncStartable.StartAsync(CancellationToken token)
         {
             _giveUpFacade.clickDecision
-                .Subscribe(_ =>
-                {
-                    // TODO: 進行中のローカルデータ削除
-                    _gameStateUse.ForceChange(GameState.Finish);
-                })
+                .Subscribe(_ => _gameStateUse.ForceChange(GameState.Finish))
                 .AddTo(_disposable);
 
             _giveUpFacade.clickBackTop

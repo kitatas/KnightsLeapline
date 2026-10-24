@@ -23,7 +23,7 @@ namespace BoardTower.Common.Presentation.Presenter
         void IInitializable.Initialize()
         {
             _loadingUseCase.transition
-                .Subscribe((t, ct) => _loadingFacade.FadeAsync(t, ct))
+                .Subscribe(_loadingFacade.FadeAsync)
                 .AddTo(_disposable);
         }
 

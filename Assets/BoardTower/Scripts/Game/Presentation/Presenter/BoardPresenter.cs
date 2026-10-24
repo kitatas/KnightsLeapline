@@ -47,11 +47,11 @@ namespace BoardTower.Game.Presentation.Presenter
                 .AddTo(_disposable);
 
             _movementUseCase.highlights
-                .Subscribe((hs, ct) => _boardFacade.ShowHighlightAsync(hs, ct))
+                .Subscribe(_boardFacade.ShowHighlightAsync)
                 .AddTo(_disposable);
 
             _boardFacade.OnClickAnySquareAsObservable()
-                .Subscribe(s => _movementUseCase.HandleClick(s))
+                .Subscribe(_movementUseCase.HandleClick)
                 .AddTo(_disposable);
         }
 

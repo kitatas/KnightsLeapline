@@ -19,14 +19,16 @@ namespace BoardTower.Common.Domain.Repository
 
         public BgmAudioVO Find(BgmType type)
         {
-            if (_bgmMap.TryGetValue(type, out var vo)) return vo;
-            throw new QuitExceptionVO(ExceptionConfig.NOT_FOUND_BGM);
+            return _bgmMap.TryGetValue(type, out var vo)
+                ? vo
+                : throw new QuitExceptionVO(ExceptionConfig.NOT_FOUND_BGM);
         }
 
         public SeAudioVO Find(SeType type)
         {
-            if (_seMap.TryGetValue(type, out var vo)) return vo;
-            throw new QuitExceptionVO(ExceptionConfig.NOT_FOUND_SE);
+            return _seMap.TryGetValue(type, out var vo)
+                ? vo
+                : throw new QuitExceptionVO(ExceptionConfig.NOT_FOUND_SE);
         }
 
         public AudioVO<T> Find<T>(T type) where T : Enum

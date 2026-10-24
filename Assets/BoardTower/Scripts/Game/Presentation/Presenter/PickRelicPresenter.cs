@@ -23,7 +23,7 @@ namespace BoardTower.Game.Presentation.Presenter
         void IStartable.Start()
         {
             _pickRelicUseCase.pickRelic
-                .Subscribe((pr, ct) => _pickRelicFacade.RenderAsync(pr, ct))
+                .Subscribe(_pickRelicFacade.RenderAsync)
                 .AddTo(_disposable);
         }
 

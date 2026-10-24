@@ -32,14 +32,9 @@ namespace BoardTower.Game.Domain.Repository
 
         private ScoreRateVO Find(ScoreRateType type, int threshold)
         {
-            if (_scoreRateMasterTable.TryFindByTypeAndThreshold((type.ToInt32(), threshold), out var master))
-            {
-                return master.ToVO();
-            }
-            else
-            {
-                throw new QuitExceptionVO(ExceptionConfig.INVALID_SCORE_RATE);
-            }
+            return _scoreRateMasterTable.TryFindByTypeAndThreshold((type.ToInt32(), threshold), out var master)
+                ? master.ToVO()
+                : throw new QuitExceptionVO(ExceptionConfig.INVALID_SCORE_RATE);
         }
 
         private ScoreRateVO FindClosest(ScoreRateType type, int threshold)

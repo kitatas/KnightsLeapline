@@ -29,19 +29,11 @@ namespace BoardTower.Common.Presentation.Presenter
         void IInitializable.Initialize()
         {
             _exceptionUseCase.exceptionNotify
-                .Subscribe((e, ct) => _exceptionFacade.FadeAsync(e, ct))
+                .Subscribe(_exceptionFacade.FadeAsync)
                 .AddTo(_disposable);
 
             _exceptionUseCase.exceptionAction
-                .Subscribe((e, ct) =>
-                {
-                    return e.exception switch
-                    {
-                        RebootExceptionVO => HandleRebootActionAsync(ct),
-                        RetryExceptionVO => UniTask.Yield(ct),
-                        _ => HandleQuitActionAsync(ct),
-                    };
-                })
+                .Subscribe(HandleExceptionActionAsync)
                 .AddTo(_disposable);
 
             _exceptionFacade.OnDecision()
@@ -49,9 +41,24 @@ namespace BoardTower.Common.Presentation.Presenter
                 .AddTo(_disposable);
         }
 
+        private UniTask HandleExceptionActionAsync(ExceptionActionVO exceptionAction, CancellationToken token)
+        {
+            return exceptionAction.exception switch
+            {
+                RebootExceptionVO => HandleRebootActionAsync(token),
+                RetryExceptionVO => HandleRetryActionAsync(token),
+                _ => HandleQuitActionAsync(token),
+            };
+        }
+
         private UniTask HandleRebootActionAsync(CancellationToken token)
         {
             _sceneUseCase.Load(SceneName.Boot, LoadType.Fade);
+            return UniTask.Yield(token);
+        }
+
+        private static UniTask HandleRetryActionAsync(CancellationToken token)
+        {
             return UniTask.Yield(token);
         }
 

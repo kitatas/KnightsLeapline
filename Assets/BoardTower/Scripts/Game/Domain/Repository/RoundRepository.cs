@@ -16,14 +16,9 @@ namespace BoardTower.Game.Domain.Repository
 
         public RoundVO Find(int round)
         {
-            if (_roundMasterTable.TryFindByRound(round, out var master))
-            {
-                return master.ToVO();
-            }
-            else
-            {
-                throw new QuitExceptionVO(ExceptionConfig.INVALID_ROUND);
-            }
+            return _roundMasterTable.TryFindByRound(round, out var master)
+                ? master.ToVO()
+                : throw new QuitExceptionVO(ExceptionConfig.INVALID_ROUND);
         }
     }
 }

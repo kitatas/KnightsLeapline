@@ -22,8 +22,9 @@ namespace BoardTower.Game.Domain.UseCase
 
         public override UniTask PublishAsync(GameState value, CancellationToken token)
         {
-            if (value is GameState.None) return UniTask.Yield(token);
-            return base.PublishAsync(value, token);
+            return value is GameState.None
+                ? UniTask.Yield(token)
+                : base.PublishAsync(value, token);
         }
     }
 }

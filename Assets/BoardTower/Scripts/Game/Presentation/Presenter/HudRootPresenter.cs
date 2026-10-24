@@ -23,7 +23,7 @@ namespace BoardTower.Game.Presentation.Presenter
         void IStartable.Start()
         {
             _hudRootUseCase.transition
-                .Subscribe((h, ct) => _hudRootFacade.FadeAsync(h, ct))
+                .Subscribe(_hudRootFacade.FadeAsync)
                 .AddTo(_disposable);
         }
 

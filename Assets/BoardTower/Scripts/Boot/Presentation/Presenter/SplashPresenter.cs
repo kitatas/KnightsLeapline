@@ -23,7 +23,7 @@ namespace BoardTower.Boot.Presentation.Presenter
         void IStartable.Start()
         {
             _splashUseCase.transition
-                .Subscribe((s, ct) => _splashFacade.FadeAsync(s, ct))
+                .Subscribe(_splashFacade.FadeAsync)
                 .AddTo(_disposable);
 
             _splashFacade.OnTapAsObservable()

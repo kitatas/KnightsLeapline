@@ -25,6 +25,14 @@ namespace BoardTower.Common.Domain.UseCase
             _saveRepository.SaveSeVolume(vo);
         }
 
+        public void PlayOneShots(SeType type, int loop, float delayRate)
+        {
+            for (int i = 0; i < loop; i++)
+            {
+                Play(type, delayRate * i);
+            }
+        }
+
         protected override SeSoundVO CreateSound(AudioVO<SeType> audio, float delay)
         {
             return new SeSoundVO(audio as SeAudioVO, delay, isMute.CurrentValue);

@@ -37,7 +37,8 @@ namespace BoardTower.Game.Presentation.Presenter
             _lotRelicUseCase.transition
                 .Subscribe((l, ct) =>
                 {
-                    if (l.transition.duration > 0) PlayPopSe();
+                    if (l.transition.duration > 0)
+                        _seUseCase.PlayOneShots(SeType.PopLog, RelicConfig.LOT_NUM, RelicConfig.LOT_DELAY_RATE);
                     return _lotRelicFacade.FadeAsync(l, ct);
                 })
                 .AddTo(_disposable);
@@ -50,14 +51,6 @@ namespace BoardTower.Game.Presentation.Presenter
                     _selectRelicUseCase.Select(x);
                 })
                 .AddTo(_disposable);
-        }
-
-        private void PlayPopSe()
-        {
-            for (int i = 0; i < RelicConfig.LOT_NUM; i++)
-            {
-                _seUseCase.Play(SeType.PopLog, RelicConfig.LOT_DELAY_RATE * i);
-            }
         }
 
         void IDisposable.Dispose()

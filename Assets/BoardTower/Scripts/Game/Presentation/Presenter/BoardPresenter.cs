@@ -33,7 +33,8 @@ namespace BoardTower.Game.Presentation.Presenter
             _boardUseCase.transition
                 .Subscribe((t, ct) =>
                 {
-                    PlaySquareSe(t.transition.fade);
+                    _seUseCase.PlayOneShots(t.transition.fade.ToSquareSeType(), BoardConfig.MAX_FILE * 2 - 1,
+                        BoardConfig.DELAY_RATE);
                     return _boardFacade.FadeAsync(t, ct);
                 })
                 .AddTo(_disposable);
@@ -53,14 +54,6 @@ namespace BoardTower.Game.Presentation.Presenter
             _boardFacade.OnClickAnySquareAsObservable()
                 .Subscribe(_movementUseCase.HandleClick)
                 .AddTo(_disposable);
-        }
-
-        private void PlaySquareSe(Fade fade)
-        {
-            for (int i = 0; i < BoardConfig.MAX_FILE * 2 - 1; i++)
-            {
-                _seUseCase.Play(fade.ToSquareSeType(), BoardConfig.DELAY_RATE * i);
-            }
         }
 
         void IDisposable.Dispose()

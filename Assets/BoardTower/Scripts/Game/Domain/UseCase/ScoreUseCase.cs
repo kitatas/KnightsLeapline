@@ -42,10 +42,10 @@ namespace BoardTower.Game.Domain.UseCase
         {
             var roundRate = _scoreRateRepository.FindRoundGemRate(_roundEntity.value);
             var comboRate = _scoreRateRepository.FindGemComboRate(_gemComboEntity.value);
-            var unitRelicRate = _pickRelicEntity.GetTotalRate(RelicType.Scales);
-            var rate = roundRate.value * comboRate.value * unitRelicRate;
+            var rate = roundRate.value * comboRate.value;
             if (isClear) rate *= _pickRelicEntity.GetTotalRate(RelicType.Seal);
             rate *= _pickRelicEntity.GetTotalRate(RelicType.Pact);
+            rate *= _pickRelicEntity.GetTotalRate(RelicType.Scales);
             var value = Mathf.CeilToInt(ScoreConfig.BASE_GEM_VALUE * rate) * gemNum;
 
             _eventLogEntity.Add(EventLogType.Score, value);

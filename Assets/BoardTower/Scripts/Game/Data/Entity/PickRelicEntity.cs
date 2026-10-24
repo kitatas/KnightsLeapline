@@ -27,7 +27,7 @@ namespace BoardTower.Game.Data.Entity
 
         public IEnumerable<RelicVO> Finds(RelicType type)
         {
-            return relics.ToList().FindAll(x => x.type == type);
+            return relics.Where(x => x.type == type);
         }
 
         public bool FindAny(RelicType type)
@@ -37,8 +37,7 @@ namespace BoardTower.Game.Data.Entity
 
         public bool FindAnyProbability(RelicType type)
         {
-            return Finds(type)
-                .Any(x => Random.Range(0, 100) < x.probability);
+            return Finds(type).Any(x => Random.Range(0, 100) < x.probability);
         }
 
         public int GetTotalValue(RelicType type)
@@ -53,14 +52,7 @@ namespace BoardTower.Game.Data.Entity
 
         public float GetTotalRate(RelicType type)
         {
-            var targets = Finds(type);
-            if (targets == null) return 1.0f;
-
-            var totalRate = targets
-                .Where(x => Random.Range(0, 100) < x.probability)
-                .Sum(x => x.value);
-
-            return (100.0f + totalRate) / 100.0f;
+            return (100.0f + GetTotalValue(type)) / 100.0f;
         }
 
         public void Add(RelicVO relic)

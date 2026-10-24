@@ -21,25 +21,23 @@ namespace BoardTower.Game.Presentation.View
 
         public void Render(RelicVO value)
         {
-            var path = ZString.Format("Assets/Externals/Sprites/UI/relic.png[relic_{0}]", value.type.ToInt32());
-            this.LoadAsset<Sprite>(path, x =>
-            {
-                icon.sprite = x;
-                relicName.text = ZString.Format("{0}", value.relicName);
-                content.text = ZString.Format("{0}", value.content);
-                uniqLabel.SetActive(value.isUniq);
-            });
+            Render(value.type.ToInt32(), value.relicName, value.content, value.isUniq);
         }
 
         public void RenderEmpty()
         {
-            var path = "Assets/Externals/Sprites/UI/relic.png[relic_0]";
+            Render(0, "---", "---", false);
+        }
+
+        private void Render(int type, string relic, string relicContent, bool isUniq)
+        {
+            var path = ZString.Format(RelicConfig.IMG_PATH, type);
             this.LoadAsset<Sprite>(path, x =>
             {
                 icon.sprite = x;
-                relicName.text = ZString.Format("{0}", "---");
-                content.text = ZString.Format("{0}", "---");
-                uniqLabel.SetActive(false);
+                relicName.text = relic;
+                content.text = relicContent;
+                uniqLabel.SetActive(isUniq);
             });
         }
 

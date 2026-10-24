@@ -1,5 +1,7 @@
 using BoardTower.Game.Application;
 using DG.Tweening;
+using R3;
+using R3.Triggers;
 using TMPro;
 using UniEx;
 using UnityEngine;
@@ -10,16 +12,31 @@ namespace BoardTower.Game.Presentation.View
     {
         [SerializeField] private Camera mainCamera = default;
         [SerializeField] private Transform target = default;
+        [SerializeField] private RectTransform safeArea = default;
         [SerializeField] private RectTransform view = default;
         [SerializeField] private TextMeshProUGUI message = default;
 
         private Tween _tween;
 
-        private void Update()
+        private void Start()
         {
-            var position = mainCamera.WorldToScreenPoint(target.position);
-            position.ClampY(-960.0f, 960.0f);
-            view.position = position;
+            var rect = safeArea.rect;
+            var halfHeight = view.rect.height * 0.5f;
+
+            this.UpdateAsObservable()
+                .Subscribe(_ =>
+                {
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        safeArea,
+                        mainCamera.WorldToScreenPoint(target.position),
+                        null,
+                        out var localPosition
+                    );
+
+                    localPosition.ClampY(rect.yMin + halfHeight, rect.yMax - halfHeight + 75.0f);
+                    view.position = safeArea.TransformPoint(localPosition);
+                })
+                .AddTo(this);
         }
 
         public Tween Tween(EventLogMessageVO eventLogMessage)

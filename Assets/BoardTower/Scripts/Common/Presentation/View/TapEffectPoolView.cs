@@ -2,6 +2,7 @@ using R3;
 using R3.Triggers;
 using UniEx;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BoardTower.Common.Presentation.View
 {
@@ -29,11 +30,11 @@ namespace BoardTower.Common.Presentation.View
         private void Start()
         {
             this.UpdateAsObservable()
-                .Where(_ => Input.GetMouseButtonDown(0))
+                .Where(_ => Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                 .Subscribe(_ =>
                 {
-                    var tapPosition = Input.mousePosition;
-                    tapPosition.z = 10.0f;
+                    var tapPoint = Mouse.current.position.ReadValue();
+                    var tapPosition = new Vector3(tapPoint.x, tapPoint.y, 10.0f);
 
                     var eff = pool.Get();
                     eff.SetUp(_mainCamera.ScreenToWorldPoint(tapPosition), _mainCamera.transform.rotation);

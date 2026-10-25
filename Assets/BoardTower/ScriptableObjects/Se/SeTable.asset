@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cd94e7aa8d48c784cc58f5bd20fab7, type: 3}
   m_Name: SeTable
   m_EditorClassIdentifier: Common.Data.DataStore::BoardTower.Common.Data.DataStore.SeTable
-  list:
-  - {fileID: 11400000, guid: f15601a599c6a46e9b0a8e6e5324e4c9, type: 2}
-  - {fileID: 11400000, guid: d05ecccbc1ba14fe194877fe9bc45adf, type: 2}
+  list: []

@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba78544bbec6429da16a6533db778090, type: 3}
   m_Name: BgmTable
   m_EditorClassIdentifier: Common.Data.DataStore::BoardTower.Common.Data.DataStore.BgmTable
-  list:
-  - {fileID: 11400000, guid: 94d72826de65941bc80b703ae00493c0, type: 2}
-  - {fileID: 11400000, guid: e41f75b8a98524f619f53507a0b3315f, type: 2}
+  list: []

@@ -78,6 +78,8 @@ namespace BoardTower.Boot.Presentation.State
                 await _loginUseCase.RegisterAsync(userDisplayName, token);
             }
 
+            await _loadingUseCase.FadeAsync(Fade.Out, token);
+
             return BootState.Load;
         }
 

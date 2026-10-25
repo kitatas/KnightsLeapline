@@ -30,20 +30,24 @@ namespace BoardTower.Common.Presentation.Presenter
             _sceneUseCase.load
                 .SubscribeAwait(async (x, ct) =>
                 {
-                    if (x.loadType is LoadType.Fade) await FadeAsync(Fade.In, ct);
+                    if (x.loadType is LoadType.Fade) await FadeInAsync(ct);
                     ResourceHelper.ReleaseAll();
                     await _sceneFacade.LoadSceneAsync(x.sceneName, ct);
-                    if (x.loadType is LoadType.Fade) await FadeAsync(Fade.Out, ct);
+                    if (x.loadType is LoadType.Fade) await FadeOutAsync(ct);
                 })
                 .AddTo(_disposable);
         }
 
-        private async UniTask FadeAsync(Fade fade, CancellationToken token)
+        private async UniTask FadeInAsync(CancellationToken token)
         {
-            await (
-                _loadingUseCase.FadeAsync(fade, token),
-                _sceneFacade.FadeAsync(fade, token)
-            );
+            await _sceneFacade.FadeAsync(Fade.In, token);
+            await _loadingUseCase.FadeAsync(Fade.In, token);
+        }
+
+        private async UniTask FadeOutAsync(CancellationToken token)
+        {
+            await _loadingUseCase.FadeAsync(Fade.Out, token);
+            await _sceneFacade.FadeAsync(Fade.Out, token);
         }
 
         public void Dispose()

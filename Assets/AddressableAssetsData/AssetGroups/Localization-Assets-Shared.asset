@@ -15,13 +15,6 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: 0b21fcc56017c4fe5a8acf88eabaab7c
   m_SerializeEntries:
-  - m_GUID: 3bacab93467d24363824a2e80a0b25a4
-    m_Address: title_logo_hd
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    - Locale-ja
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 49af034c4e3674008a9ba43b6b6706f3
     m_Address: Assets/BoardTower/Locale/LocaleAssetTable Shared Data.asset
     m_ReadOnly: 1

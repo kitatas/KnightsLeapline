@@ -14,14 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
   m_TableCollectionName: LocaleAssetTable
   m_TableCollectionNameGuidString: 49af034c4e3674008a9ba43b6b6706f3
-  m_Entries:
-  - m_Id: 15991824384
-    m_Key: Title_Logo
-    m_Metadata:
-      m_Items: []
+  m_Entries: []
   m_Metadata:
-    m_Items:
-    - rid: 1199947694025736310
+    m_Items: []
   m_KeyGenerator:
     rid: 1199947694025736309
   references:
@@ -31,13 +26,3 @@ MonoBehaviour:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1791045593459
-    - rid: 1199947694025736310
-      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries:
-        - m_KeyId: 15991824384
-          m_TableCodes:
-          - en
-          - ja
-        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null

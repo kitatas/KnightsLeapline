@@ -8,6 +8,7 @@ using MessagePack;
 using MessagePack.Resolvers;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
+using UnityEngine;
 
 namespace BoardTower.Editor
 {
@@ -41,6 +42,8 @@ namespace BoardTower.Editor
 
             File.WriteAllBytes(path, databaseBuilder.Build());
             AssetDatabase.Refresh();
+
+            Debug.Log("[MasterMemory] Build bytes completed.");
         }
 
         private static List<T> DeserializeJson<T>(string fileName)

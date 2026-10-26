@@ -2,7 +2,6 @@ using BoardTower.Game.Application;
 using DG.Tweening;
 using R3;
 using R3.Triggers;
-using TMPro;
 using UnityEngine;
 
 namespace BoardTower.Game.Presentation.View
@@ -11,7 +10,7 @@ namespace BoardTower.Game.Presentation.View
     {
         [SerializeField] private CanvasGroup canvasGroup = default;
         [SerializeField] private UnityEngine.UI.Button button = default;
-        [SerializeField] private TextMeshProUGUI touch = default;
+        [SerializeField] private CanvasGroup touch = default;
 
         public Observable<Unit> tap => button
             .OnPointerDownAsObservable()
@@ -21,7 +20,7 @@ namespace BoardTower.Game.Presentation.View
         {
             touch
                 .DOFade(0.1f, TapScreenConfig.FLASH_DURATION)
-                .SetEase(Ease.InQuad)
+                .SetEase(Ease.InCubic)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetLink(gameObject);
         }

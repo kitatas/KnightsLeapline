@@ -19,6 +19,7 @@ namespace BoardTower.Common.Presentation.View
             _tween = DOTween.Sequence()
                 .Join(TweenLoadingIcon())
                 .Join(TweenLoadingText())
+                .SetLoops(-1)
                 .SetLink(gameObject);
         }
 
@@ -28,7 +29,6 @@ namespace BoardTower.Common.Presentation.View
             return icon
                 .DORotate(endValue, LoadingConfig.ICON_ANIMATION_DURATION, RotateMode.FastBeyond360)
                 .SetEase(Ease.Linear)
-                .SetLoops(-1)
                 .SetLink(gameObject);
         }
 
@@ -56,7 +56,6 @@ namespace BoardTower.Common.Presentation.View
             }
 
             return sequence
-                .SetLoops(-1)
                 .SetLink(gameObject);
         }
 

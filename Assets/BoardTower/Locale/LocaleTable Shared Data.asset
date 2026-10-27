@@ -15,10 +15,6 @@ MonoBehaviour:
   m_TableCollectionName: LocaleTable
   m_TableCollectionNameGuidString: 7bd06ac8a1acd4f0a97660b2a11dcd0e
   m_Entries:
-  - m_Id: 34653277407666176
-    m_Key: Title
-    m_Metadata:
-      m_Items: []
   - m_Id: 9364084150493184
     m_Key: Achievement_Play
     m_Metadata:

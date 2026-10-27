@@ -148,8 +148,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 29912692914380800
-    m_Localized: "* Enter a name (3\u201325 characters).\n* Names already in use
-      cannot be selected."
+    m_Localized: "* Enter a name using 3\u201325 alphanumeric characters.\n* Names
+      already in use cannot be selected."
     m_Metadata:
       m_Items: []
   - m_Id: 29912692914380801
@@ -286,10 +286,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 34362307654967296
     m_Localized: Other Apps
-    m_Metadata:
-      m_Items: []
-  - m_Id: 34653277407666176
-    m_Localized: Knight's Pilgrimage
     m_Metadata:
       m_Items: []
   - m_Id: 34653277684490240

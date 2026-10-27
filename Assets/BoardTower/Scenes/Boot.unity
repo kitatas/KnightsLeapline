@@ -1413,12 +1413,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5035820959369879027, guid: 12e272068b6f3469a96e0ae88e70a13d, type: 3}
       propertyPath: m_text
-      value: "* Enter a name (3\u201325 characters).\n* Names already in use cannot
-        be selected."
+      value: "* Enter a name using 3\u201325 alphanumeric characters.\n* Names already
+        in use cannot be selected."
       objectReference: {fileID: 0}
     - target: {fileID: 5035820959369879027, guid: 12e272068b6f3469a96e0ae88e70a13d, type: 3}
       propertyPath: m_fontSize
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035820959369879027, guid: 12e272068b6f3469a96e0ae88e70a13d, type: 3}
+      propertyPath: m_lineSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 5035820959369879027, guid: 12e272068b6f3469a96e0ae88e70a13d, type: 3}
       propertyPath: m_fontSizeBase
@@ -1427,6 +1431,10 @@ PrefabInstance:
     - target: {fileID: 5035820959369879027, guid: 12e272068b6f3469a96e0ae88e70a13d, type: 3}
       propertyPath: m_characterSpacing
       value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035820959369879027, guid: 12e272068b6f3469a96e0ae88e70a13d, type: 3}
+      propertyPath: m_paragraphSpacing
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5035820959369879027, guid: 12e272068b6f3469a96e0ae88e70a13d, type: 3}
       propertyPath: m_VerticalAlignment

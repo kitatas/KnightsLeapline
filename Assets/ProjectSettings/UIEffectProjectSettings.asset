@@ -36,11 +36,43 @@ ShaderVariantCollection:
       variants:
       - keywords: COLOR_FILTER
         passType: 0
+      - keywords: COLOR_FILTER DETAIL_MASKING EDGE_PLAIN SAMPLING_RGB_SHIFT TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER DETAIL_MULTIPLY EDGE_PLAIN SAMPLING_RGB_SHIFT TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER EDGE_PLAIN SAMPLING_RGB_SHIFT TRANSITION_SHINY
+        passType: 0
       - keywords: COLOR_FILTER EDGE_SHINY
         passType: 0
       - keywords: COLOR_FILTER EDGE_SHINY GRADATION_COLOR2
         passType: 0
       - keywords: COLOR_FILTER EDGE_SHINY GRADATION_COLOR2 TRANSITION_SHINY
         passType: 0
+      - keywords: COLOR_FILTER EDGE_SHINY TRANSITION_SHINY
+        passType: 0
       - keywords: COLOR_FILTER GRADATION_COLOR2
+        passType: 0
+      - keywords: COLOR_FILTER GRADATION_COLOR2 SAMPLING_RGB_SHIFT TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER GRADATION_GRADIENT SAMPLING_RGB_SHIFT TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER SAMPLING_BLUR_DETAIL TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER SAMPLING_BLUR_FAST TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER SAMPLING_EDGE_LUMINANCE TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER SAMPLING_PIXELATION TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER SAMPLING_RGB_SHIFT TARGET_HUE TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER SAMPLING_RGB_SHIFT TARGET_LUMINANCE TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER SAMPLING_RGB_SHIFT TRANSITION_SHINY
+        passType: 0
+      - keywords: COLOR_FILTER TRANSITION_FADE
+        passType: 0
+      - keywords: COLOR_FILTER TRANSITION_SHINY
+        passType: 0
+      - keywords: TRANSITION_SHINY
         passType: 0

@@ -58,10 +58,10 @@ namespace BoardTower.Common.Application
 
     public sealed class ExceptionNotifyVO
     {
-        public readonly ExceptionVO? exception;
+        public readonly ExceptionVO exception;
         public readonly TransitionVO transition;
 
-        public ExceptionNotifyVO(ExceptionVO? exception, TransitionVO transition)
+        public ExceptionNotifyVO(ExceptionVO exception, TransitionVO transition)
         {
             this.exception = exception;
             this.transition = transition;

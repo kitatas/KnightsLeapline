@@ -53,7 +53,7 @@ namespace BoardTower.Game.Presentation.Presenter
                 await _exceptionUseCase.ThrowAsync(e, token);
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await _loadingUseCase.FadeAsync(Fade.Out, token);
                 await _exceptionUseCase.ThrowQuitAsync(ExceptionConfig.UNKNOWN_ERROR, token);

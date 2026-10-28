@@ -114,7 +114,7 @@ namespace BoardTower.Common.Presentation.Presenter
 
                 throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await _exceptionUseCase.ThrowQuitAsync(ExceptionConfig.UNKNOWN_ERROR, token);
                 throw;

@@ -50,7 +50,7 @@ namespace BoardTower.Common.Utility
                     throw new Exception(ZString.Format("{0} load failed: {1}", path, msg));
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }

@@ -251,6 +251,10 @@ MonoBehaviour:
     m_Key: HowTo_Ranking_Description
     m_Metadata:
       m_Items: []
+  - m_Id: 43825635787792384
+    m_Key: Guide_001
+    m_Metadata:
+      m_Items: []
   - m_Id: 30790907711184896
     m_Key: Relic_Uniq
     m_Metadata:

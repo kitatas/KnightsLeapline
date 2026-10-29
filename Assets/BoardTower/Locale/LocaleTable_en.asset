@@ -229,35 +229,35 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124354
-    m_Localized: Fragile tiles stay intact
+    m_Localized: Trap tiles remain unchanged
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124355
-    m_Localized: Ignore conveyors
+    m_Localized: Immune to conveyor movement
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124356
-    m_Localized: '{0}% chance for +{1} Coin'
+    m_Localized: '{0}% chance to gain {1} extra Coins when collecting a Coin'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124357
-    m_Localized: '{0}% chance for +{1} Heart'
+    m_Localized: '{0}% chance to gain {1} extra Hearts when collecting a Heart'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124358
-    m_Localized: '{0}% chance to keep Combo'
+    m_Localized: '{0}% chance to keep Combo when landing on a non-Coin tile'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124359
-    m_Localized: "Moves & Goal \xD70.5, Coin Score Rate +{1}%"
+    m_Localized: Moves & Coin Goal halved. Coin Score Rate +{1}%
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124360
-    m_Localized: 'Extra Coin: Score Rate +{1}%'
+    m_Localized: 'Clear Round with Extra Coins: Score Rate +{1}%'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124361
-    m_Localized: 'Get Coin: Score Rate +{1}%'
+    m_Localized: 'Collect Coin: Score Rate +{1}%'
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124362
@@ -265,7 +265,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30384012257124363
-    m_Localized: '{0}% chance: Score +{1}'
+    m_Localized: '{0}% chance to gain {1} Score when landing on a Trap tile'
     m_Metadata:
       m_Items: []
   - m_Id: 30790907711184896
@@ -412,6 +412,122 @@ MonoBehaviour:
   - m_Id: 35452377065578496
     m_Localized: "Move your Knight across an 8\xD78 board, collecting Coins to clear
       7 Rounds and aim for the highest score!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43825635787792384
+    m_Localized: '<line-indent=0%>1. Round</line-indent>
+
+      <line-indent=2%>Displays
+      the current round.</line-indent>
+
+      <line-indent=2%>Clear a round to advance
+      to the next stage.</line-indent>
+
+      <line-indent=0%>2. Moves (Hearts)</line-indent>
+
+      <line-indent=2%>Displays
+      your remaining moves.</line-indent>
+
+      <line-indent=2%>Each move consumes
+      one move, and collecting a heart restores moves.</line-indent>
+
+      <line-indent=2%>Reach
+      the coin quota before you run out of moves.</line-indent>
+
+      <line-indent=0%>3.
+      Coins</line-indent>
+
+      <line-indent=2%>Displays your current coin count
+      and the required quota.</line-indent>
+
+      <line-indent=2%>Collect the required
+      number of coins to clear the round.</line-indent>
+
+      <line-indent=0%>4.
+      Score</line-indent>
+
+      <line-indent=2%>Displays your current score.</line-indent>
+
+      <line-indent=2%>Plan
+      your moves efficiently and aim for a high score.</line-indent>
+
+      <line-indent=0%>5.
+      Relics</line-indent>
+
+      <line-indent=2%>Displays your collected relics.</line-indent>
+
+      <line-indent=2%>Relics
+      grant special effects, and you gain one each time you clear a round.</line-indent>
+
+      <line-indent=0%>6.
+      Coin</line-indent>
+
+      <line-indent=2%>Coins are scattered across the board.</line-indent>
+
+      <line-indent=2%>Move
+      your knight to collect them and meet the coin quota.</line-indent>
+
+      <line-indent=0%>7.
+      Heart</line-indent>
+
+      <line-indent=2%>Collecting a heart restores your
+      remaining moves.</line-indent>
+
+      <line-indent=2%>Plan your route carefully
+      to collect hearts and extend your run.</line-indent>
+
+      <line-indent=0%>8.
+      Conveyor Tile</line-indent>
+
+      <line-indent=2%>Stepping on this special
+      tile pushes your knight in the direction of the arrow.</line-indent>
+
+      <line-indent=2%>Anticipate
+      where it will take you and use it to your advantage.</line-indent>
+
+      <line-indent=0%>9.
+      Knight (Your Piece)</line-indent>
+
+      <line-indent=2%>This is the piece
+      you control.</line-indent>
+
+      <line-indent=2%>Like a chess knight, it moves
+      in an L-shape.</line-indent>
+
+      <line-indent=2%>Check the highlighted tiles
+      to see where you can move.</line-indent>
+
+      <line-indent=0%>10. Movable
+      Tile</line-indent>
+
+      <line-indent=2%>Highlighted tiles show where your
+      knight can move.</line-indent>
+
+      <line-indent=2%>Tap a highlighted tile
+      to move your knight there.</line-indent>
+
+      <line-indent=2%>Plan around
+      the knight''s movement and board mechanics to collect coins efficiently.</line-indent>
+
+      <line-indent=0%>11.
+      Spike Tile</line-indent>
+
+      <line-indent=2%>A dangerous tile covered in
+      spikes.</line-indent>
+
+      <line-indent=2%>Your knight cannot move onto this
+      tile.</line-indent>
+
+      <line-indent=2%>Check your available moves and plan
+      a route around it.</line-indent>
+
+      <line-indent=0%>12. Trap Tile</line-indent>
+
+      <line-indent=2%>A
+      dangerous tile that turns into a spike tile when stepped on.</line-indent>
+
+      <line-indent=2%>Once
+      transformed, it becomes impassable, so plan your route carefully.</line-indent>'
     m_Metadata:
       m_Items: []
   references:

@@ -30,10 +30,10 @@ namespace BoardTower.Common.Presentation.View
         private void Start()
         {
             this.UpdateAsObservable()
-                .Where(_ => Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                .Where(_ => Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
                 .Subscribe(_ =>
                 {
-                    var tapPoint = Mouse.current.position.ReadValue();
+                    var tapPoint = Pointer.current.position.ReadValue();
                     var tapPosition = new Vector3(tapPoint.x, tapPoint.y, 10.0f);
 
                     var eff = pool.Get();

@@ -18,8 +18,26 @@ namespace BoardTower.Common.Domain.Repository
 
         public async UniTask<SaveVO> LoadAsync(CancellationToken token)
         {
+#if UNITY_WEBGL
+            // WebGL はスレッドプールが使えないため、RunOnThreadPool と同じ挙動をメインスレッド上で再現する
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
+            token.ThrowIfCancellationRequested();
+
+            SaveDTO dto;
+            try
+            {
+                dto = Load();
+            }
+            finally
+            {
+                await UniTask.Yield();
+            }
+
+            return dto.ToVO();
+#else
             var dto = await UniTask.RunOnThreadPool(Load, cancellationToken: token);
             return dto.ToVO();
+#endif
         }
 
         private static SaveDTO Create()

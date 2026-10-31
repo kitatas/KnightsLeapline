@@ -77,14 +77,12 @@ namespace BoardTower.Common.Application
 
     public sealed class UrlConfig
     {
-        // TODO: fix url
-        public const string URL_BASE = "https://kitatas.github.io/games/numeri_rogue/";
+        public const string URL_BASE = "https://kitatas.github.io/games/knights_leapline/";
         public const string URL_POLICY = URL_BASE + "policy";
         public const string URL_LICENSE = URL_BASE + "license";
         public const string URL_CREDIT = URL_BASE + "credit";
 
-        // TODO: fix url
-        public const string APP_URL = "https://play.google.com/store/apps/details?id=com.KitaLab.NumeriRogue";
+        public const string APP_URL = "https://play.google.com/store/apps/details?id=com.KitaLab.KnightsLeapline";
         public const string DEVELOPER_APP_URL = "https://play.google.com/store/apps/developer?id=KitaLab";
     }
 
